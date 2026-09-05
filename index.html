@@ -784,9 +784,30 @@
     font-family:inherit;
     font-size:0.92rem;
     color:var(--navy-deep);
+    transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .quote-form input:hover, .quote-form select:hover, .quote-form textarea:hover{
+    border-color:rgba(4,24,48,0.4);
+  }
+  .quote-form input:focus, .quote-form select:focus, .quote-form textarea:focus{
+    outline:none;
+    border-color:var(--navy-deep);
+    background:rgba(255,255,255,0.85);
+    box-shadow:0 0 0 4px rgba(4,24,48,0.12);
   }
   .quote-form input::placeholder, .quote-form textarea::placeholder{color:rgba(4,24,48,0.5);}
   .quote-form textarea{resize:vertical;min-height:70px;}
+  .quote-form select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    cursor:pointer;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23041830' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    background-size:16px 16px;
+    padding-right:40px;
+  }
   .quote-form button{
     margin-top:6px;
     background:var(--navy-deep);
@@ -1192,7 +1213,7 @@
 
         <div class="quote-panel">
           <div class="qtag"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5 11 13.5 15.5 9"/><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6"/></svg></div>
-          <h3>Get a Quote</h3>
+          <h3>Free Quote</h3>
           <p>No obligation. Tell us what you need and we'll be in touch.</p>
 
           <form class="quote-form" onsubmit="handleQuoteSubmit(event)">
@@ -1207,7 +1228,7 @@
               <option>Fencing services</option>
             </select>
             <textarea placeholder="Tell us a bit about the job"></textarea>
-            <button type="submit">Request my quote</button>
+            <button type="submit">Request a Free Quote</button>
           </form>
           <p class="form-note" id="formNote">We usually reply within one business day.</p>
         </div>
