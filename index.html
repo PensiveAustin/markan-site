@@ -1680,7 +1680,7 @@
         if(authorEl) authorEl.textContent = quotes[i].author;
         el.style.opacity = 1;
         if(authorEl) authorEl.style.opacity = 1;
-      }, 250);
+      }, 700);
     }
     prevBtn.addEventListener('click', function(){ qi = (qi - 1 + quotes.length) % quotes.length; show(qi); });
     nextBtn.addEventListener('click', function(){ qi = (qi + 1) % quotes.length; show(qi); });
