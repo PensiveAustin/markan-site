@@ -33,6 +33,7 @@
     font-size:16px;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   h1,h2,h3,h4{
     font-family:'Archivo',sans-serif;
@@ -699,10 +700,12 @@
     overflow:hidden;
     box-shadow:var(--shadow);
   }
+  .contact-block > div{min-width:0;}
   .contact-info{
     background:var(--navy-deep);
     color:#fff;
     padding:56px 48px;
+    min-width:0;
   }
   .contact-info h2{
     color:#fff;
@@ -713,12 +716,14 @@
     margin-top:14px;
     color:rgba(250,248,243,0.68);
     max-width:38ch;
+    overflow-wrap:break-word;
   }
   .contact-list{
     margin-top:34px;
     display:flex;
     flex-direction:column;
     gap:18px;
+    min-width:0;
   }
   .contact-list a{
     display:flex;
@@ -726,6 +731,9 @@
     gap:14px;
     font-weight:600;
     font-size:0.98rem;
+    min-width:0;
+    overflow-wrap:anywhere;
+    word-break:break-word;
   }
   .contact-list a:hover{color:var(--gold-light);}
   .c-icon{
