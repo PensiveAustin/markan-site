@@ -585,7 +585,7 @@
   /* ---------- Projects (Helix coil carousel) ---------- */
   .projects{background:var(--cream);}
   .helix-shell{
-    --h-rx: 300;
+    --h-rx: 340;
     --h-ry: 30;
     --h-coil: 0.85;
     --h-fall: 0.55;
@@ -595,19 +595,20 @@
   .helix-stage-wrap{position:relative;}
   .helix-stage{
     position:relative;
-    height:min(48vh, 380px);
-    min-height:260px;
+    height:460px;
+    min-height:380px;
     perspective:1400px;
     touch-action:pan-y;
     cursor:grab;
-    overflow:hidden;
+    overflow:visible;
+    padding:30px 0;
   }
   .helix-stage.grabbing{cursor:grabbing;}
   .h-plate{
     position:absolute;
     left:50%;
     top:50%;
-    width:min(360px, 64vw);
+    width:min(480px, 80vw);
     aspect-ratio:16/10;
     border-radius:14px;
     cursor:pointer;
@@ -624,7 +625,8 @@
     border-radius:14px;
     overflow:hidden;
     background:var(--navy-soft);
-    background-size:cover;
+    background-size:contain;
+    background-repeat:no-repeat;
     background-position:center;
     box-shadow:0 22px 46px -20px rgba(4,24,48,0.45), 0 2px 6px rgba(4,24,48,0.1);
   }
@@ -993,8 +995,8 @@
     .service-card{padding:32px 24px 28px;max-width:none;}
     .service-icon{width:70px;height:70px;}
     .service-card h3{font-size:1.24rem;}
-    .helix-stage{height:min(40vh,300px);min-height:220px;}
-    .h-plate{width:min(300px,72vw);}
+    .helix-stage{height:340px;min-height:280px;}
+    .h-plate{width:min(340px,85vw);}
     .hc-title{font-size:1.08rem;}
     .hc-desc{font-size:0.88rem;}
     .testi-quote{font-size:1.06rem;}
@@ -1505,7 +1507,7 @@
     if(N === 0) return;
 
     var pos = 0, target = 0, raf = 0, running = false, settled = -1;
-    var RX = 300, RY = 30, COIL = 0.85, FALL = 0.55;
+    var RX = 340, RY = 30, COIL = 0.85, FALL = 0.55;
 
     function readVars(){
       var cs = getComputedStyle(stage);
@@ -1513,7 +1515,7 @@
         var v = parseFloat(cs.getPropertyValue(name));
         return isNaN(v) ? fb : v;
       }
-      RX = num('--h-rx', 300);
+      RX = num('--h-rx', 340);
       RY = num('--h-ry', 30);
       COIL = num('--h-coil', 0.85);
       FALL = num('--h-fall', 0.55);
