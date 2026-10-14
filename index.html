@@ -2,1874 +2,1078 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Markan Property Maintenance &amp; Fencing Services</title>
-<meta name="description" content="Roof care, lawn care, exterior painting, pressure washing and fencing services. Reliable, quality, affordable, friendly.">
-<link rel="icon" href="logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Austin Garcia — Portfolio</title>
+<link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy: #0b1626;
-    --navy-deep: #041830;
-    --navy-soft: #16233c;
-    --gold: #c9922e;
-    --gold-deep: #a97927;
-    --gold-light: #e7bd74;
-    --cream: #faf8f3;
-    --paper: #fffefb;
-    --line: rgba(11,22,38,0.12);
-    --shadow: 0 20px 50px -25px rgba(4,24,48,0.35);
+    --bg-0: #060d15;
+    --bg-1: #0a1620;
+    --panel: #0b1720;
+    --panel-2: #0d1b26;
+    --border: #1c2e3d;
+    --dot: #16283a;
+    --dot-dim: #0e1c29;
+    --cyan: #5fe3d1;
+    --cyan-dim: #2a6b63;
+    --amber: #ffb347;
+    --ink: #eaf2f4;
+    --ink-dim: #6f8b96;
+    --ink-dimmer: #4c6774;
+    --danger: #ff5d5d;
   }
 
-  *,*::before,*::after{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
   body{
-    margin:0;
-    background:var(--cream);
-    color:var(--navy);
-    font-family:'Inter',sans-serif;
-    font-size:16px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    background: var(--bg-0);
+    color: var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    min-height:100vh;
   }
-  h1,h2,h3,h4{
-    font-family:'Archivo',sans-serif;
-    margin:0;
-    color:var(--navy);
-    letter-spacing:-0.01em;
-  }
-  p{margin:0;}
-  ul{margin:0;padding:0;list-style:none;}
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
-  button{font-family:inherit;cursor:pointer;}
+  body.is-loading{ overflow:hidden; height:100vh; }
 
-  a:focus-visible, button:focus-visible{
-    outline:2px solid var(--gold-deep);
-    outline-offset:3px;
+  a{ color:inherit; }
+
+  /* ---------- FIXED BACKDROP ---------- */
+  .backdrop{
+    position:fixed; inset:0;
+    z-index:0;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .dotfield{
+    position:absolute; inset:-10% -10%;
+    background-image: radial-gradient(circle at 12px 12px, var(--dot) 1.6px, transparent 1.6px);
+    background-size: 24px 24px;
+    background-position: 0 0;
+    animation: driftDots 40s linear infinite;
+    will-change: background-position;
+  }
+  @keyframes driftDots{
+    0%   { background-position: 0 0; }
+    100% { background-position: 480px 0; }
+  }
+  @media (prefers-reduced-motion: reduce){ .dotfield{ animation:none; } }
+
+  .glow{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 900px 600px at 82% 4%, rgba(95,227,209,0.06), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 6% 60%, rgba(95,227,209,0.045), transparent 60%);
+  }
+  .vignette{
+    position:absolute; inset:0;
+    box-shadow: inset 0 0 180px 50px rgba(0,0,0,0.65);
   }
 
-  .wrap{
+  /* ---------- SHAKE ---------- */
+  .shake{ animation: screenshake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+  @keyframes screenshake{
+    0%{ transform:translate(0,0); }
+    10%{ transform:translate(-10px,-6px) rotate(-0.6deg); }
+    20%{ transform:translate(9px,5px) rotate(0.5deg); }
+    30%{ transform:translate(-8px,7px) rotate(-0.4deg); }
+    40%{ transform:translate(8px,-6px) rotate(0.5deg); }
+    50%{ transform:translate(-6px,4px) rotate(-0.3deg); }
+    60%{ transform:translate(6px,-4px) rotate(0.3deg); }
+    70%{ transform:translate(-4px,3px) rotate(-0.2deg); }
+    80%{ transform:translate(4px,-3px) rotate(0.2deg); }
+    90%{ transform:translate(-2px,2px) rotate(-0.1deg); }
+    100%{ transform:translate(0,0) rotate(0); }
+  }
+
+  /* ---------- LOADING OVERLAY ---------- */
+  #loading-overlay{
+    position:fixed; inset:0;
+    z-index:100;
+    display:flex; align-items:center; justify-content:center;
+    transition: opacity 0.5s ease, filter 0.5s ease;
+  }
+  #loading{
+    position:relative;
+    display:flex; flex-direction:column; align-items:center;
+    gap:38px;
+    padding:0 20px;
+  }
+
+  .eyebrow-pixel{
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    letter-spacing:6px;
+    color: var(--ink-dim);
+  }
+  .eyebrow-pixel .blip{
+    display:inline-block;
+    width:6px; height:6px;
+    background: var(--cyan);
+    margin-right:10px;
+    box-shadow: 0 0 8px var(--cyan);
+    animation: blip 1s steps(2) infinite;
+  }
+  @keyframes blip{ 50%{ opacity:0.15; } }
+
+  .monogram{
+    position:relative;
+    font-family:'Press Start 2P', monospace;
+    font-size:clamp(56px, 14vw, 168px);
+    letter-spacing: 0.06em;
+    line-height:1;
+    color: var(--ink);
+    text-shadow: 0 0 6px rgba(95,227,209,0.5), 0 0 26px rgba(95,227,209,0.25), 0 0 60px rgba(95,227,209,0.12);
+    user-select:none;
+  }
+  .monogram::before{
+    content:"AJG";
+    position:absolute; left:0; top:0;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(95,227,209,0.35);
+    filter: blur(0.5px);
+    transform: translate(3px,3px);
+    z-index:-1;
+  }
+  .monogram .g-fill{
+    display:inline-block;
+    background: linear-gradient(180deg, var(--ink) 0%, var(--ink) 55%, var(--cyan) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .scanline{
+    position:absolute; left:-6%; width:112%; height:6px;
+    background: linear-gradient(90deg, transparent, rgba(95,227,209,0.55), transparent);
+    filter: blur(1px);
+    animation: scan 2.4s ease-in-out infinite;
+  }
+  @keyframes scan{
+    0%{ top:-10%; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ top:110%; opacity:0; }
+  }
+
+  .bar-wrap{ display:flex; flex-direction:column; align-items:center; gap:12px; width:min(560px, 78vw); }
+  .bar-frame{
+    position:relative; width:100%; height:26px; padding:4px;
+    background:#0a141c; border:2px solid #21384a;
+    box-shadow: inset 0 0 0 1px #060d13, 0 0 0 1px rgba(95,227,209,0.06);
+  }
+  .bar-track{
+    position:relative; width:100%; height:100%; display:flex; gap:3px;
+    background: repeating-linear-gradient(90deg, var(--dot-dim) 0 2px, transparent 2px 4px);
+  }
+  .segment{ flex:1 1 0; background:#0e1c27; position:relative; overflow:hidden; }
+  .segment .fill{
+    position:absolute; inset:0; transform:scaleX(0); transform-origin:left;
+    background: linear-gradient(180deg, #bff9ee, var(--cyan) 40%, var(--cyan-dim));
+    box-shadow: 0 0 10px rgba(95,227,209,0.8), 0 0 2px #fff inset;
+    transition: transform 0.28s cubic-bezier(.2,.8,.3,1);
+  }
+  .segment.lit .fill{ transform:scaleX(1); }
+  .segment.crit .fill{
+    background: linear-gradient(180deg, #fff2d6, var(--amber) 45%, #c47c1c);
+    box-shadow: 0 0 12px rgba(255,179,71,0.85);
+  }
+  .bar-readout{
+    display:flex; justify-content:space-between; width:100%;
+    font-family:'Press Start 2P', monospace; font-size:10px; color:var(--ink-dim); letter-spacing:2px;
+  }
+  #pct{ color:var(--cyan); }
+  #pct.crit{ color:var(--amber); }
+  .flavor{ font-family:'Press Start 2P', monospace; font-size:9px; letter-spacing:2px; color:var(--ink-dim); height:12px; }
+
+  /* ---------- NAVBAR ---------- */
+  .navbar{
+    position:fixed; top:0; left:0; right:0;
+    z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+    padding: 18px clamp(20px, 4vw, 56px);
+    background: rgba(10,20,29,0.35);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid rgba(95,227,209,0.08);
+    transform: translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+  }
+  .navbar.show{ animation: navDown 1.3s cubic-bezier(.16,.8,.3,1) forwards; pointer-events:auto; }
+  @keyframes navDown{ 0%{ transform:translateY(-100%); opacity:0; } 100%{ transform:translateY(0); opacity:1; } }
+
+  .nav-brand{ display:flex; align-items:center; gap:12px; min-width:0; }
+  .nav-logo{ height:45px; width:45px; object-fit:contain; flex-shrink:0; filter: drop-shadow(0 0 10px rgba(95,227,209,0.25)); }
+  .nav-name{ font-weight:600; font-size:16px; letter-spacing:0.02em; color:var(--ink); white-space:nowrap; }
+
+  .nav-links{ display:flex; align-items:center; gap:clamp(18px, 3vw, 40px); list-style:none; }
+  .nav-links a{
+    font-size:14px; font-weight:500; letter-spacing:0.01em; color:var(--ink-dim);
+    text-decoration:none; position:relative; padding-bottom:3px; transition: color 0.25s ease; white-space:nowrap;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0%; height:1px; background:var(--cyan); transition: width 0.25s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a:hover::after{ width:100%; }
+
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:9px;
+    font-size:13px; font-weight:600; letter-spacing:0.03em;
+    color:#06141a; background:var(--cyan);
+    padding:11px 18px; border:none; border-radius:999px; cursor:pointer; white-space:nowrap;
+    box-shadow: 0 0 0 1px rgba(95,227,209,0.4), 0 6px 20px rgba(95,227,209,0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    text-decoration:none;
+  }
+  .nav-cta svg{ width:14px; height:14px; transition: transform 0.2s ease; }
+  .nav-cta:hover{ transform:translateY(-1px); background:#7cf0e0; box-shadow: 0 0 0 1px rgba(95,227,209,0.6), 0 10px 26px rgba(95,227,209,0.3); }
+  .nav-cta:hover svg{ transform: translate(2px,-2px); }
+
+  @media (max-width: 760px){ .nav-links{ display:none; } }
+
+  /* ---------- SHARED SECTION STYLES ---------- */
+  main{ position:relative; z-index:10; }
+
+  .section{
+    position:relative;
     max-width:1180px;
     margin:0 auto;
-    padding:0 32px;
+    padding: 90px clamp(20px, 6vw, 56px);
   }
-
-  /* ---------- Header ---------- */
-  header{
-    position:sticky;
-    top:0;
-    z-index:50;
-    background:rgba(250,248,243,0.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:14px 0;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  .brand img{height:74px;width:74px;object-fit:contain;transition:transform .5s cubic-bezier(.34,1.56,.64,1);}
-  .brand:hover img{transform:rotate(-8deg) scale(1.06);}
-  .brand-text{display:flex;flex-direction:column;line-height:1.15;}
-  .brand-text strong{
-    font-family:'Archivo',sans-serif;
-    font-weight:900;
-    font-size:clamp(2.5rem, 4.4vw, 3.55rem);
-    letter-spacing:-0.02em;
-    color:var(--navy);
-  }
-  .brand-text strong span{color:#ac8041;}
-  nav.links{
-    display:flex;
-    gap:30px;
-  }
-  nav.links a{
-    font-weight:600;
-    font-size:0.93rem;
-    color:var(--navy);
-    position:relative;
-    padding:4px 0;
-  }
-  nav.links a::after{
-    content:"";
-    position:absolute;
-    left:0;bottom:-2px;
-    width:0;height:2px;
-    background:var(--gold-deep);
-    transition:width .25s ease;
-  }
-  nav.links a:hover::after{width:100%;}
-
-  .header-actions{
-    display:flex;
-    align-items:center;
-    gap:18px;
-  }
-  .phone-pill{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-weight:700;
-    font-size:0.95rem;
-    color:var(--navy);
-  }
-  .phone-pill svg{width:18px;height:18px;stroke:var(--gold-deep);flex-shrink:0;}
-
-  .btn{
-    position:relative;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    padding:12px 24px;
-    border-radius:999px;
-    font-weight:700;
-    font-size:0.92rem;
-    border:2px solid transparent;
-    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
-    white-space:nowrap;
-    overflow:hidden;
-  }
-  .btn::before{
-    content:"";
-    position:absolute;
-    top:0;left:-60%;
-    width:40%;height:100%;
-    background:linear-gradient(115deg, transparent, rgba(255,255,255,0.55), transparent);
-    transform:skewX(-20deg);
-    transition:left .55s ease;
-    pointer-events:none;
-  }
-  .btn:hover::before{left:130%;}
-  .btn-gold{
-    background:var(--gold);
-    color:var(--navy-deep);
-  }
-  .btn-gold:hover{
-    background:var(--gold-deep);
-    transform:translateY(-2px);
-    box-shadow:0 14px 26px -12px rgba(169,121,39,0.55);
-  }
-  .btn-outline{
-    border-color:var(--navy);
-    color:var(--navy);
-    background:transparent;
-  }
-  .btn-outline:hover{
-    background:var(--navy);
-    color:var(--cream);
-    transform:translateY(-2px);
-  }
-  .btn-ghost-light{
-    border-color:rgba(255,255,255,0.5);
-    color:#fff;
-  }
-  .btn-ghost-light:hover{
-    background:rgba(255,255,255,0.12);
-    border-color:#fff;
-  }
-
-  .burger{display:none;background:none;border:none;padding:9px;}
-  .burger svg{width:26px;height:26px;stroke:var(--navy);}
-  .mobile-nav{
-    display:none;
-    flex-direction:column;
-    padding:16px 20px 22px;
-    gap:14px;
-    border-top:1px solid var(--line);
-    background:var(--cream);
-  }
-  .mobile-nav.open{display:flex;}
-  .mobile-nav a{font-weight:600;font-size:1.02rem;color:var(--navy);}
-
-  /* ---------- Hero ---------- */
-  .hero{
-    padding:72px 0 60px;
-    overflow:hidden;
-    position:relative;
-  }
-  .hero::before{
-    content:"";
-    position:absolute;
-    top:-160px;
-    right:-120px;
-    width:520px;height:520px;
-    background:radial-gradient(closest-side, rgba(201,146,46,0.22), transparent);
-    border-radius:50%;
-    filter:blur(10px);
-    pointer-events:none;
-    z-index:0;
-    animation:heroDrift 14s ease-in-out infinite;
-  }
-  @keyframes heroDrift{
-    0%,100%{transform:translate(0,0) scale(1);}
-    50%{transform:translate(-40px,50px) scale(1.12);}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hero::before{animation:none;}
-  }
-  .hero .wrap{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:56px;
-    align-items:center;
-    position:relative;
-    z-index:1;
-  }
-  .hero-copy > *{
-    opacity:0;
-    animation:heroRise .7s cubic-bezier(.22,.61,.36,1) forwards;
-  }
-  .hero-copy > *:nth-child(1){animation-delay:.05s;}
-  .hero-copy > *:nth-child(2){animation-delay:.15s;}
-  .hero-copy > *:nth-child(3){animation-delay:.25s;}
-  .hero-copy > *:nth-child(4){animation-delay:.35s;}
-  .hero-copy > *:nth-child(5){animation-delay:.45s;}
-  .hero-copy > *:nth-child(6){animation-delay:.55s;}
-  @keyframes heroRise{
-    from{opacity:0; transform:translateY(18px);}
-    to{opacity:1; transform:translateY(0);}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hero-copy > *{animation:none; opacity:1;}
-  }
-  .hero-tagline{
-    font-family:'Archivo',sans-serif;
-    font-size:2.1rem;
-    font-weight:900;
-    letter-spacing:0.01em;
-    line-height:1.1;
-    text-transform:uppercase;
-    color:var(--navy);
-    margin-bottom:16px;
-    background:linear-gradient(100deg, var(--navy) 20%, var(--gold-deep) 45%, var(--gold-light) 55%, var(--navy) 80%);
-    background-size:250% 100%;
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:heroRise .7s cubic-bezier(.22,.61,.36,1) .05s forwards, taglineShine 7s ease-in-out .8s infinite;
-  }
-  @keyframes taglineShine{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hero-tagline{animation:none;}
-  }
-  .eyebrow-line{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:var(--gold-deep);
-    font-weight:700;
-    font-size:0.85rem;
+  .section-head{ margin-bottom:48px; max-width:640px; }
+  .eyebrow-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Press Start 2P', monospace;
+    font-size:10px; letter-spacing:0.12em;
+    color: var(--amber);
     margin-bottom:18px;
   }
-  .eyebrow-line span.dot{
-    width:8px;height:8px;border-radius:50%;background:var(--gold-deep);
-    box-shadow:0 0 0 0 rgba(169,121,39,0.55);
-    animation:dotPulse 2.2s ease-out infinite;
+  .eyebrow-tag .num{ color:var(--cyan); }
+  .section-title{
+    font-weight:700; font-size:clamp(30px, 4.2vw, 48px); line-height:1.08; letter-spacing:-0.02em; color:var(--ink); margin-bottom:14px;
   }
-  @keyframes dotPulse{
-    0%{box-shadow:0 0 0 0 rgba(169,121,39,0.5);}
-    70%{box-shadow:0 0 0 9px rgba(169,121,39,0);}
-    100%{box-shadow:0 0 0 0 rgba(169,121,39,0);}
-  }
+  .section-sub{ font-size:15px; line-height:1.6; color:var(--ink-dim); }
 
-  /* ---------- Scroll reveal ---------- */
-  .reveal{
+  /* ---------- HERO ---------- */
+  #hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:110px;
     opacity:0;
-    transform:translateY(28px);
-    transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1);
-  }
-  .reveal.in-view{
-    opacity:1;
-    transform:translateY(0);
-  }
-  @media (prefers-reduced-motion: reduce){
-    .eyebrow-line span.dot{animation:none;}
-    .reveal{opacity:1;transform:none;transition:none;}
-  }
-
-  .hero h1{
-    font-size:1.7rem;
-    font-weight:800;
-    line-height:1.15;
-    color:var(--navy);
-  }
-  .hero h1 .accent{color:var(--gold-deep);}
-
-  .hero p.lead{
-    margin-top:22px;
-    max-width:46ch;
-    font-size:1.08rem;
-    color:#3a4457;
-  }
-
-  .hero-ctas{
-    display:flex;
-    gap:16px;
-    margin-top:32px;
-    flex-wrap:wrap;
-  }
-
-  .trust-strip{
-    margin-top:44px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:26px 34px;
-  }
-  .trust-item{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-weight:700;
-    font-size:0.88rem;
-    color:var(--navy-soft);
-  }
-  .trust-item svg{width:26px;height:26px;flex-shrink:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
-  .trust-item:hover svg{transform:rotate(-12deg) scale(1.15);}
-
-  /* ---------- Cinematic Stage ---------- */
-  .stage-outer{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .stage{
-    position:relative;
-    width:100%;
-    max-width:460px;
-    aspect-ratio:1/1;
-    perspective:560px;
-  }
-  .stage-ring{
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    border:2px solid rgba(201,146,46,0.45);
-    transition:transform .4s ease-out;
-  }
-  .stage-ring::before{
-    content:"";
-    position:absolute;
-    inset:34px;
-    border-radius:50%;
-    border:1px solid rgba(11,22,38,0.14);
-  }
-  .stage-glow{
-    position:absolute;
-    inset:8%;
-    border-radius:50%;
-    background:radial-gradient(circle at 42% 38%, rgba(231,189,116,0.55), rgba(231,189,116,0) 62%),
-               radial-gradient(circle at 65% 70%, rgba(4,24,48,0.16), rgba(4,24,48,0) 60%);
-    filter:blur(2px);
-    transition:transform .4s ease-out;
-  }
-  .stage-shadow{
-    position:absolute;
-    left:50%;
-    bottom:6%;
-    width:62%;
-    height:9%;
-    background:radial-gradient(ellipse at center, rgba(4,24,48,0.42), rgba(4,24,48,0) 72%);
-    transform:translateX(-50%);
-    transition:transform .4s ease-out, opacity .4s ease-out;
     pointer-events:none;
   }
-  .stage-tilt{
-    position:absolute;
-    inset:0;
-    transform-style:preserve-3d;
-    transition:transform .5s cubic-bezier(.22,1,.36,1);
-    will-change:transform;
-  }
-  .stage-images{
-    position:absolute;
-    inset:14%;
-    transform-style:preserve-3d;
-  }
-  .stage-shine{
-    position:absolute;
-    inset:14%;
-    border-radius:50%;
-    background:radial-gradient(circle at 30% 25%, rgba(255,255,255,0.65), rgba(255,255,255,0) 55%);
-    mix-blend-mode:soft-light;
-    pointer-events:none;
-    transition:transform .4s ease-out, opacity .4s ease-out;
-  }
-  .s-img{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    opacity:0;
-    transform-style:preserve-3d;
-    transform-origin:50% 50%;
-    backface-visibility:hidden;
-    transform:rotateY(78deg) translateZ(-40px) scale(.88);
-    transition:transform 1.35s cubic-bezier(.62,0,.32,1), opacity 1.05s ease;
-    filter:drop-shadow(0 26px 22px rgba(4,24,48,0.35));
-    will-change:transform, opacity;
-  }
-  .s-img.active{
-    opacity:1;
-    transform:rotateY(0deg) translateZ(95px) scale(1.05);
-    z-index:3;
-    transition:transform 1.35s cubic-bezier(.22,.9,.32,1), opacity .5s ease;
-  }
-  .s-img.leaving{
-    opacity:0;
-    transform:rotateY(-78deg) translateZ(-40px) scale(.88);
-    z-index:2;
-  }
-  .stage-sweep{
-    position:absolute;
-    inset:14%;
-    border-radius:14px;
-    pointer-events:none;
-    background:linear-gradient(100deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 60%);
-    opacity:0;
-    mix-blend-mode:screen;
-  }
-  .stage-sweep.sweep-run{
-    animation:sweepMove 1.35s cubic-bezier(.62,0,.32,1);
-  }
-  @keyframes sweepMove{
-    0%{opacity:0; transform:translateX(-60%);}
-    35%{opacity:.9;}
-    60%{opacity:0;}
-    100%{opacity:0; transform:translateX(60%);}
-  }
-  .stage-caption{
-    position:absolute;
-    left:50%;
-    bottom:-6px;
-    transform:translateX(-50%);
-    background:var(--navy-deep);
-    color:var(--gold-light);
-    font-weight:700;
-    font-size:0.78rem;
-    letter-spacing:0.02em;
-    padding:9px 22px;
-    border-radius:999px;
-    box-shadow:var(--shadow);
-    white-space:nowrap;
-    transition:opacity .5s ease;
+  #hero.show{ opacity:1; pointer-events:auto; animation: heroIn 1s cubic-bezier(.16,.8,.3,1) both; }
+  @keyframes heroIn{ 0%{ opacity:0; transform:translateY(18px); } 100%{ opacity:1; transform:translateY(0); } }
+
+  .hero-grid{
+    width:100%; max-width:1180px; margin:0 auto;
+    display:grid; grid-template-columns: 1.15fr 0.85fr; align-items:center;
+    gap:clamp(30px, 5vw, 70px);
+    padding: 0 clamp(20px, 6vw, 56px);
   }
 
-  /* ---------- Section shell ---------- */
-  section{padding:96px 0;}
-  .section-head{
-    text-align:center;
-    max-width:860px;
-    margin:0 auto 56px;
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:9px;
+    font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--cyan);
+    border:1px solid rgba(95,227,209,0.35); padding:7px 14px; border-radius:999px; margin-bottom:26px;
   }
-  .section-head .rule-row{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-    margin-bottom:14px;
+  .hero-badge .blip{ width:6px; height:6px; background:var(--cyan); border-radius:50%; box-shadow:0 0 8px var(--cyan); animation: blip 1s steps(2) infinite; }
+
+  .hero-title{
+    font-weight:700; font-size: clamp(38px, 5.2vw, 68px); line-height:1.05; letter-spacing:-0.02em; color:var(--ink); margin-bottom:26px;
   }
-  .section-head .rule-row .line{
-    height:1px;
-    width:46px;
-    background:var(--navy);
-    opacity:0.35;
-    transform-origin:center;
-    transform:scaleX(0);
-    transition:transform .8s cubic-bezier(.22,.61,.36,1);
+  .hero-title .accent{ color:var(--cyan); }
+
+  .hero-desc-row{ display:flex; gap:18px; margin-bottom:36px; max-width:520px; }
+  .hero-desc-row .rule{ flex-shrink:0; width:3px; border-radius:2px; background:var(--amber); margin-top:3px; }
+  .hero-desc-row p{ font-size:15px; line-height:1.65; color:var(--ink-dim); }
+  .hero-desc-row p b{ color:var(--ink); font-weight:600; }
+  .hero-desc-row p .hl{ color:var(--cyan); font-weight:600; }
+
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; }
+  .btn{
+    font-size:13.5px; font-weight:600; letter-spacing:0.02em;
+    padding:13px 22px; border-radius:10px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   }
-  .section-head.in-view .rule-row .line{transform:scaleX(1);}
-  .section-head h2{
-    font-size:clamp(1.9rem,3vw,2.5rem);
-    font-weight:900;
-    text-wrap:balance;
+  .btn-primary{ border:none; color:#06141a; background:var(--cyan); box-shadow: 0 0 0 1px rgba(95,227,209,0.4), 0 10px 24px rgba(95,227,209,0.18); }
+  .btn-primary:hover{ transform:translateY(-2px); background:#7cf0e0; box-shadow: 0 0 0 1px rgba(95,227,209,0.6), 0 14px 30px rgba(95,227,209,0.28); }
+  .btn-primary svg{ width:14px; height:14px; transition: transform 0.2s ease; }
+  .btn-primary:hover svg{ transform: translate(2px,-2px); }
+  .btn-ghost{ border:1px solid #23394a; color:var(--ink); background: rgba(255,255,255,0.02); }
+  .btn-ghost:hover{ transform:translateY(-2px); border-color: rgba(95,227,209,0.5); background: rgba(95,227,209,0.06); }
+  .btn-ghost svg{ width:14px; height:14px; }
+  .btn-block{ width:100%; justify-content:center; }
+
+  .hero-portrait{ position:relative; justify-self:center; width:min(340px, 90%); }
+  .portrait-frame{
+    position:relative; aspect-ratio: 4/5; border-radius:18px; overflow:hidden;
+    background: linear-gradient(160deg, #0d1e28, #081218);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.55);
   }
-  .section-head p{
-    margin-top:14px;
-    color:#4a5468;
-    font-size:1.02rem;
+  .portrait-frame img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position: center 18%;
+    filter: grayscale(0.35) contrast(1.06) brightness(0.94);
+  }
+  .portrait-frame::after{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(200deg, rgba(95,227,209,0.22), transparent 45%), linear-gradient(0deg, rgba(4,10,15,0.75), transparent 40%);
+  }
+  .portrait-corner{ position:absolute; width:26px; height:26px; border:2px solid var(--cyan); opacity:0.9; }
+  .portrait-corner.tl{ top:-8px; left:-8px; border-right:none; border-bottom:none; }
+  .portrait-corner.br{ bottom:-8px; right:-8px; border-left:none; border-top:none; }
+
+  .hi-card{
+    position:absolute; left:-18px; bottom:-22px;
+    display:flex; flex-direction:column; gap:8px;
+    background: rgba(9,18,25,0.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border:1px solid rgba(95,227,209,0.3); border-radius:12px; padding:14px 18px;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.45); min-width:190px;
+  }
+  .hi-card .type-line{ font-size:14.5px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; }
+  .hi-card .cursor{
+    display:inline-block; width:2px; height:0.95em; background:var(--cyan);
+    box-shadow: 0 0 10px rgba(95,227,209,0.8); margin-left:2px;
+    animation: caret 0.9s steps(1) infinite; transform: translateY(0.14em);
+  }
+  @keyframes caret{ 50%{ opacity:0; } }
+  .hi-card .status-row{ display:flex; align-items:center; gap:6px; }
+  .hi-card .status-row span{ height:3px; flex:1; background: rgba(95,227,209,0.18); border-radius:2px; overflow:hidden; }
+  .hi-card .status-row span::after{ content:""; display:block; height:100%; width:0%; background:var(--cyan); box-shadow:0 0 6px var(--cyan); animation: barfill 2.4s ease forwards 0.6s; }
+  .hi-card .status-row span:nth-child(2)::after{ animation-delay:0.75s; }
+  .hi-card .status-row span:nth-child(3)::after{ animation-delay:0.9s; }
+  @keyframes barfill{ to{ width:100%; } }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns:1fr; text-align:left; }
+    .hero-portrait{ order:-1; margin:0 auto 10px; width:min(240px, 62%); }
+    #hero{ padding-top:130px; }
+    .hi-card{ left:-10px; bottom:-18px; min-width:170px; }
   }
 
-  /* ---------- Services ---------- */
-  .services{background:var(--navy-deep);}
-  .services .section-head h2{color:#fff;}
-  .services .section-head p{color:rgba(250,248,243,0.68);}
-  .services .rule-row .line{background:var(--gold-light);opacity:0.5;}
-  .service-grid{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:stretch;
-    gap:32px;
-  }
-  .service-card{
-    background:#fff;
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:20px;
-    padding:48px 38px 44px;
-    display:flex;
-    flex-direction:column;
-    gap:26px;
-    flex:1 1 340px;
-    max-width:380px;
-    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  }
-  .service-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
-    border-color:rgba(201,146,46,0.4);
-  }
-  .service-icon{
-    width:96px;
-    height:96px;
-    border-radius:24px;
-    background:linear-gradient(160deg, rgba(201,146,46,0.16), rgba(4,24,48,0.06));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:16px;
-    transition:transform .45s cubic-bezier(.34,1.56,.64,1), background .3s ease;
-  }
-  .service-card:hover .service-icon{
-    transform:scale(1.08) rotate(-6deg);
-    background:linear-gradient(160deg, rgba(201,146,46,0.32), rgba(4,24,48,0.08));
-  }
-  .service-icon img{width:100%;height:100%;object-fit:contain;}
-  .service-card h3{
-    font-size:1.5rem;
-    font-weight:800;
-  }
-  .service-desc{
-    font-size:0.98rem;
-    color:#4a5468;
-    line-height:1.55;
-  }
-  .service-card ul{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:13px;
-  }
-  .service-card ul li{
-    position:relative;
-    padding-left:20px;
-    font-size:1.02rem;
-    color:#4a5468;
-  }
-  .service-card ul li::before{
-    content:"";
-    position:absolute;
-    left:0;top:10px;
-    width:6px;height:6px;
-    border-radius:50%;
-    background:var(--gold-deep);
-  }
+  /* ---------- REVEAL ON SCROLL ---------- */
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(.16,.8,.3,1), transform 0.7s cubic-bezier(.16,.8,.3,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
 
-  /* ---------- Projects (Helix coil carousel) ---------- */
-  .projects{background:var(--cream);}
-  .helix-shell{
-    --h-rx: 300;
-    --h-ry: 30;
-    --h-coil: 0.85;
-    --h-fall: 0.55;
-    position:relative;
-    margin-top:12px;
+  /* ---------- ABOUT ---------- */
+  #about .section-head{ max-width:720px; }
+
+  /* ---------- SKILLS (BENTO) ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns: 1fr 1.35fr;
+    grid-template-rows: auto auto;
+    gap:20px;
   }
-  .helix-stage-wrap{position:relative;}
-  .helix-stage{
-    position:relative;
-    height:min(48vh, 380px);
-    min-height:260px;
-    perspective:1400px;
-    touch-action:pan-y;
-    cursor:grab;
-    overflow:hidden;
+  .skill-card{
+    background: var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:26px 26px 28px;
+    display:flex; flex-direction:column;
+    transition: border-color 0.25s ease, transform 0.25s ease;
   }
-  .helix-stage.grabbing{cursor:grabbing;}
-  .h-plate{
-    position:absolute;
-    left:50%;
-    top:50%;
-    width:min(360px, 64vw);
-    aspect-ratio:16/10;
-    border-radius:14px;
-    cursor:pointer;
-    -webkit-user-drag:none;
+  .skill-card:hover{ border-color: rgba(95,227,209,0.35); transform: translateY(-3px); }
+  .skill-card.wide{ grid-column: 2; grid-row: 1 / span 2; }
+  .skill-card.a{ grid-column:1; grid-row:1; }
+  .skill-card.b{ grid-column:1; grid-row:2; }
+
+  .skill-icon{
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(95,227,209,0.1);
+    color: var(--cyan);
+    margin-bottom:16px;
+  }
+  .skill-icon svg{ width:20px; height:20px; }
+  .skill-card h3{ font-size:18px; font-weight:700; margin-bottom:4px; }
+  .skill-card .skill-desc{ font-size:13px; color:var(--ink-dim); margin-bottom:18px; }
+
+  .tag-row{ display:flex; flex-wrap:wrap; gap:9px; margin-bottom:18px; }
+  .skill-tag{
+    font-size:12.5px; font-weight:500; color:var(--ink-dim);
+    border:1px solid var(--border); background: rgba(255,255,255,0.02);
+    padding:7px 13px; border-radius:999px; cursor:pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     user-select:none;
-    transform-style:preserve-3d;
-    backface-visibility:hidden;
-    will-change:transform, opacity;
   }
-  .h-plate>*{pointer-events:none;}
-  .h-media{
-    position:absolute;
-    inset:0;
-    border-radius:14px;
-    overflow:hidden;
-    background:var(--navy-soft);
-    background-size:cover;
-    background-position:center;
-    box-shadow:0 22px 46px -20px rgba(4,24,48,0.45), 0 2px 6px rgba(4,24,48,0.1);
+  .skill-tag:hover{ border-color: rgba(95,227,209,0.4); color: var(--ink); }
+  .skill-tag.active{
+    color:#06141a; background:var(--cyan); border-color:var(--cyan);
+    box-shadow: 0 0 16px rgba(95,227,209,0.35);
   }
-  .h-media::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:14px;
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,0.35);
-  }
-  .h-no{
-    position:absolute;
-    left:2px;
-    bottom:-28px;
-    font-weight:800;
-    font-size:0.8rem;
-    letter-spacing:0.04em;
-    color:var(--gold-deep);
-    opacity:0;
-    transition:opacity .3s ease;
-  }
-  .h-plate.is-centre .h-no{opacity:1;}
-  .h-plate.press .h-media{transform:scale(.985);transition:transform .14s ease;}
-
-  .helix-caption{
-    max-width:620px;
-    min-height:88px;
-    margin:1.7rem auto 0;
-    text-align:center;
-    transition:opacity .22s ease, transform .22s ease;
-  }
-  .helix-caption.swap{opacity:0;transform:translateY(6px);}
-  .hc-head{
-    display:flex;
-    align-items:baseline;
-    justify-content:center;
-    gap:0.8rem;
-    margin-bottom:0.45rem;
-  }
-  .hc-no{font-weight:800;font-size:1rem;color:var(--gold-deep);}
-  .hc-rule{width:32px;height:1px;background:var(--line);}
-  .hc-title{font-size:1.28rem;font-weight:800;color:var(--navy);}
-  .hc-desc{font-size:0.95rem;line-height:1.6;color:#4a5468;max-width:52ch;margin:0 auto;}
-
-  .helix-scrub-shell{margin:1.8rem auto 0;width:320px;max-width:calc(100% - 20px);}
-  .helix-scrub{position:relative;height:26px;display:flex;align-items:center;touch-action:none;cursor:pointer;}
-  .helix-scrub:focus-visible{outline:2px solid var(--gold-deep);outline-offset:6px;border-radius:4px;}
-  .hs-track{position:absolute;left:0;right:0;height:4px;border-radius:2px;background:var(--line);}
-  .hs-fill{position:absolute;left:0;height:4px;border-radius:2px;background:var(--gold);width:0;}
-  .hs-ticks{position:absolute;left:0;right:0;height:26px;pointer-events:none;}
-  .h-tick{
-    position:absolute;top:50%;width:1px;height:9px;margin-top:-4.5px;
-    background:rgba(11,22,38,0.25);
-    transition:height .3s ease, background .3s ease, margin-top .3s ease;
-  }
-  .h-tick.on{height:13px;margin-top:-6.5px;background:var(--gold-deep);}
-  .hs-thumb{
-    position:absolute;top:50%;width:30px;height:13px;margin-top:-6.5px;margin-left:-15px;
-    border-radius:7px;background:#fff;border:1px solid var(--line);
-    box-shadow:0 3px 8px rgba(4,24,48,0.2);
-    display:flex;align-items:center;justify-content:center;gap:3px;pointer-events:none;
-  }
-  .hs-thumb i{width:1px;height:6px;background:var(--gold-deep);display:block;}
-
-  .carousel-btn{
-    position:absolute;
-    top:38%;
-    transform:translateY(-50%);
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:var(--gold);
-    border:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:var(--shadow);
-    z-index:5;
-    transition:background .2s ease, transform .2s ease;
-  }
-  .carousel-btn:hover{background:var(--gold-deep);transform:translateY(-50%) scale(1.06);}
-  .carousel-btn svg{width:20px;height:20px;stroke:var(--navy-deep);}
-  .carousel-btn.prev{left:-8px;}
-  .carousel-btn.next{right:-8px;}
-  @media (max-width:840px){
-    .carousel-btn{display:none;}
+  .skill-tag.pop{ animation: tagPop 0.45s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes tagPop{
+    0%{ transform:scale(1); }
+    35%{ transform:scale(1.16); }
+    65%{ transform:scale(0.96); }
+    100%{ transform:scale(1); }
   }
 
-  /* ---------- Testimonials ---------- */
-  .testimonials{background:var(--paper);text-align:center;}
-  .testi-quote{
+  .skill-caption{ font-size:13px; line-height:1.6; color:var(--ink-dim); margin-top:auto; }
 
-    max-width:760px;
-    margin:0 auto;
-    font-size:1.3rem;
-    font-style:italic;
-    font-weight:500;
-    color:var(--navy-soft);
-    line-height:1.65;
-    transition:opacity .7s ease;
-    min-height:5.5em;
+  @media (max-width: 780px){
+    .skills-grid{ grid-template-columns:1fr; }
+    .skill-card.wide, .skill-card.a, .skill-card.b{ grid-column:1; grid-row:auto; }
   }
-  .testi-author{
-    margin-top:6px;
-    font-size:0.88rem;
-    font-weight:700;
-    color:var(--gold-deep);
-    transition:opacity .7s ease;
-  }
-  .testi-nav{
-    display:flex;
-    gap:16px;
-    justify-content:center;
-    margin-top:36px;
-  }
-  .testi-nav button{
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:var(--gold);
-    border:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:var(--shadow);
-    transition:background .2s ease, transform .2s ease;
-  }
-  .testi-nav button:hover{background:var(--gold-deep);transform:scale(1.06);}
-  .testi-nav button svg{width:20px;height:20px;stroke:var(--navy-deep);}
 
-  /* ---------- Why us ---------- */
-  .why{
-    background:var(--navy-deep);
-    color:var(--cream);
-  }
-  .why .section-head h2{color:#fff;}
-  .why .section-head p{color:rgba(250,248,243,0.68);}
-  .why .rule-row .line{background:var(--gold-light);opacity:0.5;}
-  .why-grid{
+  /* ---------- SAMPLES ---------- */
+  .samples-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:24px;
-  }
-  .why-card{
-    background:rgba(255,255,255,0.045);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:18px;
-    padding:30px 22px;
-    text-align:center;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:16px;
-    transition:transform .3s ease, background .3s ease, border-color .3s ease;
-  }
-  .why-card:hover{
-    transform:translateY(-6px);
-    background:rgba(255,255,255,0.08);
-    border-color:rgba(231,189,116,0.55);
-  }
-  .why-icon{
-    width:62px;height:62px;
-    border-radius:50%;
-    background:rgba(201,146,46,0.14);
-    border:1.5px solid var(--gold-light);
-    display:flex;align-items:center;justify-content:center;
-    transition:transform .4s cubic-bezier(.34,1.56,.64,1), background .3s ease;
-  }
-  .why-card:hover .why-icon{
-    transform:scale(1.12) rotate(-8deg);
-    background:rgba(201,146,46,0.28);
-  }
-  .why-icon svg{width:28px;height:28px;stroke:var(--gold-light);}
-  .why-card h4{
-    color:#fff;
-    font-size:1.02rem;
-    font-weight:800;
-  }
-  .why-card p{
-    font-size:0.87rem;
-    color:rgba(250,248,243,0.62);
-  }
-
-  /* ---------- Contact / Quote ---------- */
-  .contact-block{
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    border-radius:26px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-  }
-  .contact-block > div{min-width:0;}
-  .contact-info{
-    background:var(--navy-deep);
-    color:#fff;
-    padding:56px 48px;
-    min-width:0;
-  }
-  .contact-info h2{
-    color:#fff;
-    font-size:clamp(1.7rem,2.6vw,2.15rem);
-    font-weight:900;
-  }
-  .contact-info p.sub{
-    margin-top:14px;
-    color:rgba(250,248,243,0.68);
-    max-width:38ch;
-    overflow-wrap:break-word;
-  }
-  .contact-list{
-    margin-top:34px;
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-    min-width:0;
-  }
-  .contact-list a, .contact-list .contact-item{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    font-weight:600;
-    font-size:0.98rem;
-    min-width:0;
-    overflow-wrap:anywhere;
-    word-break:break-word;
-  }
-  .contact-list a:hover{color:var(--gold-light);}
-  .c-icon{
-    width:40px;height:40px;
-    border-radius:50%;
-    background:var(--gold);
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .c-icon svg{width:19px;height:19px;stroke:var(--navy-deep);}
-
-  .quote-panel{
-    background:var(--gold);
-    padding:56px 44px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-  }
-  .quote-panel .qtag{
-    width:52px;height:52px;
-    border-radius:14px;
-    background:var(--navy-deep);
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:20px;
-  }
-  .quote-panel .qtag svg{width:26px;height:26px;stroke:var(--gold-light);}
-  .quote-panel h3{
-    font-size:1.9rem;
-    font-weight:900;
-    color:var(--navy-deep);
-  }
-  .quote-panel p{
-    margin-top:10px;
-    color:rgba(4,24,48,0.75);
-    font-weight:500;
-  }
-  .quote-form{
-    margin-top:26px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
-  .quote-form input, .quote-form select, .quote-form textarea{
-    border:1.5px solid rgba(4,24,48,0.25);
-    background:rgba(255,255,255,0.55);
-    border-radius:10px;
-    padding:12px 14px;
-    font-family:inherit;
-    font-size:0.92rem;
-    color:var(--navy-deep);
-    transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;
-  }
-  .quote-form input:hover, .quote-form select:hover, .quote-form textarea:hover{
-    border-color:rgba(4,24,48,0.4);
-  }
-  .quote-form input:focus, .quote-form select:focus, .quote-form textarea:focus{
-    outline:none;
-    border-color:var(--navy-deep);
-    background:rgba(255,255,255,0.85);
-    box-shadow:0 0 0 4px rgba(4,24,48,0.12);
-  }
-  .quote-form input::placeholder, .quote-form textarea::placeholder{color:rgba(4,24,48,0.5);}
-  .quote-form textarea{resize:vertical;min-height:70px;}
-  .quote-form select{
-    appearance:none;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    cursor:pointer;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23041830' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
-    background-repeat:no-repeat;
-    background-position:right 14px center;
-    background-size:16px 16px;
-    padding-right:40px;
-  }
-  .quote-form button{
-    margin-top:6px;
-    background:var(--navy-deep);
-    color:#fff;
-    border:none;
-    border-radius:999px;
-    padding:14px;
-    font-weight:800;
-    font-size:0.95rem;
-    transition:background .2s ease, transform .2s ease;
-  }
-  .quote-form button:hover{background:#020d1c;transform:translateY(-2px);}
-  .form-note{font-size:0.78rem;color:rgba(4,24,48,0.55);margin-top:10px;}
-
-  /* ---------- Footer ---------- */
-  footer{
-    padding:36px 0 40px;
-    border-top:1px solid var(--line);
-  }
-  .foot-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:16px;
-  }
-  .foot-brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-weight:700;
-    font-size:0.9rem;
-    color:var(--navy-soft);
-  }
-  .foot-brand img{height:30px;width:30px;object-fit:contain;}
-  .foot-links{
-    display:flex;
+    grid-template-columns: repeat(2, 1fr);
     gap:22px;
-    font-size:0.85rem;
-    font-weight:600;
-    color:var(--navy-soft);
   }
-  .foot-links a:hover{color:var(--gold-deep);}
-  .foot-copy{font-size:0.8rem;color:#8791a3;}
+  .sample-card{
+    background: var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .sample-card:hover{ transform: translateY(-4px); border-color: rgba(95,227,209,0.35); }
+  .sample-media{
+    position:relative;
+    aspect-ratio: 16/10;
+    overflow:hidden;
+    background:#081119;
+  }
+  .sample-media img{
+    width:100%; height:100%; object-fit:cover;
+    display:block;
+    transition: transform 0.5s cubic-bezier(.16,.8,.3,1);
+  }
+  .sample-card:hover .sample-media img{ transform: scale(1.06); }
+  .sample-media::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(0deg, rgba(6,13,20,0.55), transparent 45%);
+  }
+  .sample-meta{ padding:18px 20px 20px; }
+  .sample-meta h3{ font-size:15.5px; font-weight:700; margin-bottom:6px; }
+  .sample-meta p{ font-size:13px; line-height:1.55; color: var(--ink-dim); }
 
-  /* ---------- Responsive ---------- */
-  @media (max-width:960px){
-    .why-grid{grid-template-columns:repeat(2,1fr);}
-    .contact-block{grid-template-columns:1fr;}
+  @media (max-width: 700px){
+    .samples-grid{ grid-template-columns:1fr; }
   }
-  @media (max-width:840px){
-    nav.links{display:none;}
-    .header-actions .phone-pill{display:none;}
-    .burger{display:inline-flex;}
-    .hero .wrap{grid-template-columns:1fr;}
-    .stage-outer{order:-1;margin-bottom:8px;}
-    .stage{max-width:320px;margin:0 auto;}
+ 
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{ position:relative; padding-left:38px; }
+  .timeline::before{ content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background: linear-gradient(180deg, var(--cyan), transparent); opacity:0.35; }
+  .tl-item{ position:relative; padding-bottom:44px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-dot{
+    position:absolute; left:-38px; top:2px; width:20px; height:20px; border-radius:50%;
+    background: var(--panel); border:2px solid var(--cyan); box-shadow: 0 0 12px rgba(95,227,209,0.4);
+    display:flex; align-items:center; justify-content:center;
   }
-  @media (max-width:640px){
-    .brand img{height:52px;width:52px;}
-    .brand-text strong{font-size:1.9rem;}
-    .header-actions{gap:10px;}
-    .header-actions .btn{padding:10px 16px;font-size:0.85rem;}
-    .hero-tagline{font-size:1.5rem;}
-    .hero h1{font-size:1.4rem;}
-    .hero::before{width:300px;height:300px;top:-90px;right:-80px;}
-    .service-card{padding:32px 24px 28px;max-width:none;}
-    .service-icon{width:70px;height:70px;}
-    .service-card h3{font-size:1.24rem;}
-    .helix-stage{height:min(40vh,300px);min-height:220px;}
-    .h-plate{width:min(300px,72vw);}
-    .hc-title{font-size:1.08rem;}
-    .hc-desc{font-size:0.88rem;}
-    .testi-quote{font-size:1.06rem;}
-  }
-  @media (max-width:560px){
-    .wrap{padding:0 20px;}
-    section{padding:70px 0;}
-    .why-grid{grid-template-columns:1fr 1fr;}
-    .contact-info, .quote-panel{padding:40px 26px;}
-    .hero{padding:44px 0 40px;}
-  }
-  @media (max-width:420px){
-    .brand-text strong{font-size:1.55rem;}
-    .brand img{height:44px;width:44px;}
-    .header-actions .btn{padding:9px 13px;font-size:0.8rem;}
-    .hero-tagline{font-size:1.3rem;}
-    .hero h1{font-size:1.25rem;}
-    .why-grid{grid-template-columns:1fr;}
-    .why-card{padding:26px 20px;}
-  }
+  .tl-dot::after{ content:""; width:7px; height:7px; border-radius:50%; background:var(--cyan); }
+  .tl-year{ font-family:'Press Start 2P', monospace; font-size:11px; color:var(--amber); letter-spacing:0.05em; margin-bottom:10px; }
+  .tl-card{ background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:22px 24px; }
+  .tl-card h3{ font-size:17px; font-weight:700; margin-bottom:8px; }
+  .tl-card p{ font-size:14px; line-height:1.65; color:var(--ink-dim); }
+  .tl-card p .hl{ color:var(--cyan); font-weight:600; }
 
-  @media (prefers-reduced-motion: reduce){
-    .s-img{transition:opacity .6s linear !important; transform:none !important;}
-    .stage-tilt, .stage-ring, .stage-glow, .stage-shine, .stage-shadow{transition:none !important; transform:none !important;}
-    html{scroll-behavior:auto;}
+  /* ---------- CONTACT ---------- */
+  .contact-grid{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap:clamp(30px,5vw,60px); align-items:start; }
+  .contact-info-list{ display:flex; flex-direction:column; gap:8px; margin: 22px 0 28px; font-size:14.5px; color:var(--ink-dim); }
+  .contact-info-list span{ color:var(--ink); }
+
+  .contact-form{
+    background: var(--panel); border:1px solid var(--border); border-radius:16px; padding:clamp(22px,3vw,34px);
+    display:flex; flex-direction:column; gap:18px;
   }
+  .field label{ display:block; font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:8px; }
+  .field input, .field textarea{
+    width:100%; background:#060f16; border:1px solid var(--border); border-radius:8px;
+    padding:12px 14px; font-family:'Space Grotesk', sans-serif; font-size:14px; color:var(--ink);
+    resize:vertical; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .field input::placeholder, .field textarea::placeholder{ color: var(--ink-dimmer); }
+  .field input:focus, .field textarea:focus{ outline:none; border-color: rgba(95,227,209,0.55); box-shadow: 0 0 0 3px rgba(95,227,209,0.12); }
+
+  .btn[disabled]{ opacity:0.6; cursor:not-allowed; transform:none !important; }
+
+  .form-status{
+    font-size:13px; text-align:center; min-height:18px;
+    transition: opacity 0.3s ease;
+  }
+  .form-status.ok{ color: var(--cyan); }
+  .form-status.err{ color: var(--danger); }
+
+  @media (max-width: 860px){ .contact-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    position:relative; z-index:10;
+    border-top:1px solid var(--border);
+    padding: 30px clamp(20px,6vw,56px) 90px;
+  }
+  .footer-inner{
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  .footer-brand{ display:flex; align-items:center; gap:10px; }
+  .footer-badge{
+    font-family:'Press Start 2P', monospace; font-size:10px; color:var(--cyan);
+    border:1px solid rgba(95,227,209,0.4); border-radius:6px; padding:5px 7px;
+  }
+  .footer-name{ font-size:13px; font-weight:700; letter-spacing:0.06em; }
+  .footer-tagline{ font-size:12.5px; color: var(--ink-dimmer); margin-top:2px; }
+  .footer-left{ display:flex; flex-direction:column; }
+
+  .footer-social{ display:flex; gap:22px; flex-wrap:wrap; }
+  .footer-social a{ font-size:13px; color: var(--ink-dim); text-decoration:none; transition: color 0.2s ease; }
+  .footer-social a:hover{ color: var(--cyan); }
+  .footer-copy{ font-size:12px; color: var(--ink-dimmer); }
+
+  .float-btn{
+    position:fixed; z-index:40;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background: rgba(9,18,25,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border:1px solid rgba(95,227,209,0.35); color:var(--cyan);
+    text-decoration:none; cursor:pointer;
+    opacity:0; transform: translateY(12px); pointer-events:none;
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+  }
+  .float-btn.show{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  #toTop{
+    left:24px; bottom:24px; padding:10px 16px; border-radius:999px; font-size:12px; font-weight:600; letter-spacing:0.04em;
+  }
+  #toTop svg{ width:13px; height:13px; }
+  #toContact{
+    right:24px; bottom:24px; width:52px; height:52px; border-radius:50%;
+  }
+  #toContact svg{ width:20px; height:20px; }
+  .float-btn:hover{ background: rgba(95,227,209,0.12); }
 </style>
 </head>
-<body>
+<body class="is-loading">
 
-<header>
-  <div class="wrap nav-row">
-    <a href="#top" class="brand">
-      <img src="logo.png" alt="Markan Property Maintenance and Fencing Services logo">
-      <div class="brand-text">
-        <strong>Mark<span>an</span></strong>
-      </div>
-    </a>
+<div class="backdrop">
+  <div class="dotfield"></div>
+  <div class="glow"></div>
+  <div class="vignette"></div>
+</div>
 
-    <nav class="links">
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#why">Why Us</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="header-actions">
-      <a class="phone-pill" href="tel:0212513600">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        021 251 3600
-      </a>
-      <a href="#contact" class="btn btn-gold">Contact Us!</a>
-      <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false" onclick="var m=document.getElementById('mnav');var open=m.classList.toggle('open');this.setAttribute('aria-expanded', open);">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
+<div id="loading-overlay">
+  <div id="loading">
+    <div class="eyebrow-pixel"><span class="blip"></span>INITIALIZING PORTFOLIO</div>
+    <div class="monogram" aria-label="AJG">
+      <div class="scanline"></div>
+      <span class="g-fill">AJG</span>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-frame"><div class="bar-track" id="track"></div></div>
+      <div class="bar-readout"><span id="label">LOADING</span><span id="pct">0%</span></div>
+      <div class="flavor" id="flavor"></div>
     </div>
   </div>
-  <nav id="mnav" class="mobile-nav">
-    <a href="#services" onclick="document.getElementById('mnav').classList.remove('open')">Services</a>
-    <a href="#projects" onclick="document.getElementById('mnav').classList.remove('open')">Projects</a>
-    <a href="#why" onclick="document.getElementById('mnav').classList.remove('open')">Why Us</a>
-    <a href="#contact" onclick="document.getElementById('mnav').classList.remove('open')">Contact</a>
-    <a href="tel:0212513600" style="font-weight:700;">Call 021 251 3600</a>
-  </nav>
-</header>
+</div>
 
-<main id="top">
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <img src="logo.png" alt="" class="nav-logo" onerror="this.style.display='none'">
+    <span class="nav-name">Austin Garcia</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#about">Brief About</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">
+    Contact Me
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L18 6M18 6H9M18 6V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-copy">
-        <p class="hero-tagline">Property Maintenance &amp; Fencing Services</p>
-        <div class="eyebrow-line"><span class="dot"></span>Reliable &nbsp;·&nbsp; Quality &nbsp;·&nbsp; Affordable &nbsp;·&nbsp; Friendly</div>
-        <h1>We take care of<br>your <span class="accent">home</span>.</h1>
-        <p class="lead">Roof care, lawn care, exterior painting, pressure washing and fencing — one trusted team for the outside of your property, done properly and on time.</p>
-        <div class="hero-ctas">
-          <a href="#contact" class="btn btn-gold">Get a Quote</a>
-          <a href="#services" class="btn btn-outline">See our services</a>
+<main>
+
+  <section id="hero">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-badge"><span class="blip"></span>Full-Stack Web Developer</div>
+        <h1 class="hero-title">Websites Built To<br>Actually <span class="accent">Perform.</span></h1>
+        <div class="hero-desc-row">
+          <div class="rule"></div>
+          <p>
+            I design and build <b>professional, production-ready websites</b> end to end —
+            domain setup, hosting, and <span class="hl">Cloudflare</span>-backed deployment,
+            plus custom <span class="hl">databases</span> and backend systems for sites that
+            need to actually do something, not just look good.
+          </p>
         </div>
-
-        <div class="trust-strip">
-          <div class="trust-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
-            Reliable &amp; on time
-          </div>
-          <div class="trust-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="m8.5 12.5-1.6 7 5.1-2.4 5.1 2.4-1.6-7"/></svg>
-            Quality work you can trust
-          </div>
-          <div class="trust-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 .8 3 2c0 3-6 1.5-6 4.5 0 1.2 1.3 2 3 2s3-1.1 3-2.5"/></svg>
-            Affordable prices
-          </div>
-          <div class="trust-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.7-3.4 3.2-5.2 6.5-5.2S15.3 16.6 16 20"/><circle cx="18" cy="9.5" r="2.4"/><path d="M17 14.3c2 .3 3.5 1.6 4 3.9"/></svg>
-            Friendly service
-          </div>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            Let's Build Something
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L18 6M18 6H9M18 6V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#samples" class="btn btn-ghost">View Samples</a>
+          <a href="AustinGarcia_Resume.pdf" download="AustinGarcia_Resume.pdf" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Resume
+          </a>
         </div>
       </div>
 
-      <div class="stage-outer">
-        <div class="stage" id="stage">
-          <div class="stage-glow" id="stageGlow"></div>
-          <div class="stage-ring" id="stageRing"></div>
-          <div class="stage-shadow" id="stageShadow"></div>
-          <div class="stage-tilt" id="stageTilt">
-            <div class="stage-images">
-              <img class="s-img active" data-cap="Exterior Painting" src="paintswap.png" alt="Tin of paint with roller">
-              <img class="s-img" data-cap="Pressure Washing" src="pressurewasherswap.png" alt="Pressure washer machine with attachments">
-              <img class="s-img" data-cap="Lawn Care" src="lawnmowerswap.png" alt="Petrol lawnmower">
-              <div class="stage-sweep" id="stageSweep"></div>
-            </div>
-            <div class="stage-shine" id="stageShine"></div>
-          </div>
-          <div class="stage-caption" id="stageCaption">Exterior Painting</div>
+      <div class="hero-portrait">
+        <div class="portrait-frame"><img src="Austin.png" alt="Austin Garcia"></div>
+        <div class="portrait-corner tl"></div>
+        <div class="portrait-corner br"></div>
+        <div class="hi-card">
+          <div class="type-line" id="typeLine">&nbsp;</div>
+          <div class="status-row"><span></span><span></span><span></span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="rule-row"><span class="line"></span><h2>Our Services</h2><span class="line"></span></div>
-        <p>Five ways we look after the outside of your property, from the roof down to the fence line.</p>
+  <section id="about" class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow-tag"><span class="num">02</span> // ABOUT</div>
+      <h2 class="section-title">A little about me.</h2>
+      <p class="section-sub">
+        I'm Austin — a full-stack web developer who likes turning ideas into things people
+        actually use. Right now I'm leading development on a learning platform built for
+        real students, while sharpening the fundamentals through a Mobile App and Web
+        Development track. I care about clean builds, clear communication, and shipping
+        sites that hold up after launch.
+      </p>
+    </div>
+  </section>
+
+  <section id="skills" class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow-tag"><span class="num">03</span> // TOOLKIT</div>
+      <h2 class="section-title">Tools & Skills</h2>
+      <p class="section-sub">The toolkit I use to design, build, and ship real projects — tap a tag.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card a">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 10l5-3v10l-5-3M4 6h9a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Video & Content</h3>
+        <div class="skill-desc">Editing & creation</div>
+        <div class="tag-row"><span class="skill-tag">CapCut</span></div>
+        <p class="skill-caption">Cutting, captioning, and polishing short-form content and demo reels.</p>
       </div>
 
-      <div class="service-grid">
-
-        <div class="service-card">
-          <div class="service-icon"><img src="roof.png" alt="Roof care icon"></div>
-          <h3>Roof Care</h3>
-          <p class="service-desc">Keep your roof in top condition — we clean, treat and check for damage so it stays weathertight all year.</p>
-          <ul>
-            <li>Roof washing / cleaning</li>
-            <li>Roof paint</li>
-            <li>Roof treatment</li>
-            <li>Roof general maintenance</li>
-            <li>Gutter cleaning &amp; repair</li>
-          </ul>
+      <div class="skill-card b">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-
-        <div class="service-card">
-          <div class="service-icon"><img src="lawnmower.png" alt="Lawn care icon"></div>
-          <h3>Gardening</h3>
-          <p class="service-desc">Keep your lawn neat, healthy and looking its best all year round.</p>
-          <ul>
-            <li>Lawn mowing</li>
-            <li>Section cleaning</li>
-          </ul>
+        <h3>Productivity & Ops</h3>
+        <div class="skill-desc">For scheduling, docs & communication</div>
+        <div class="tag-row">
+          <span class="skill-tag">Microsoft Office</span>
+          <span class="skill-tag">Zoom</span>
+          <span class="skill-tag">Google Workspace</span>
         </div>
+        <p class="skill-caption">Keeping projects, meetings, and client comms organized end to end.</p>
+      </div>
 
-        <div class="service-card">
-          <div class="service-icon"><img src="paint.png" alt="Exterior painting icon"></div>
-          <h3>Exterior Painting</h3>
-          <p class="service-desc">Refresh and protect your home with a clean, long-lasting finish, inside and out.</p>
-          <ul>
-            <li>Deck painting</li>
-            <li>Fence painting</li>
-            <li>Roof painting</li>
-            <li>Residential exterior painting</li>
-            <li>Commercial exterior painting</li>
-            <li>House repaints</li>
-          </ul>
+      <div class="skill-card wide">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-
-        <div class="service-card">
-          <div class="service-icon"><img src="water-spray.png" alt="Water blasting icon"></div>
-          <h3>Water Blasting &amp; Pressure Washing</h3>
-          <p class="service-desc">Remove dirt, mould, grime and stains from all exterior surfaces to bring them back to life.</p>
-          <ul>
-            <li>Driveways</li>
-            <li>Home &amp; window wash</li>
-            <li>Decks &amp; patios</li>
-          </ul>
+        <h3>Web Dev Tools</h3>
+        <div class="skill-desc">For building, deploying & maintaining full-stack websites</div>
+        <div class="tag-row">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Cloudflare</span>
+          <span class="skill-tag">Supabase</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">VS Code</span>
         </div>
-
-        <div class="service-card">
-          <div class="service-icon"><img src="fence.png" alt="Fencing icon"></div>
-          <h3>Fencing Services</h3>
-          <p class="service-desc">New fences, repairs and replacements — strong, secure and built to last.</p>
-          <ul>
-            <li>Build new wooden fence</li>
-            <li>Fence repair / replace</li>
-            <li>Fence painting</li>
-            <li>Fence water blasting</li>
-          </ul>
-        </div>
-
+        <p class="skill-caption">Develop, deploy, and maintain sites — domains, hosting, databases, and version control all handled.</p>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section class="projects" id="projects">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="rule-row"><span class="line"></span><h2>Our Projects</h2><span class="line"></span></div>
-        <p>A few recent jobs from around the area — drag, scroll or use the arrows to look through.</p>
+  <section id="samples" class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow-tag"><span class="num">04</span> // SAMPLES</div>
+      <h2 class="section-title">PNHS Grammar Wizard</h2>
+      <p class="section-sub">A few builds from recent projects — hover to take a closer look.</p>
+    </div>
+
+    <div class="samples-grid">
+      <div class="sample-card">
+        <div class="sample-media"><img src="sample-1.png" alt="Project sample 1"></div>
+        <div class="sample-meta">
+          <h3>Modern Business Website</h3>
+          <p>Clean, responsive websites designed to give your business a professional online presence and make a strong first impression.</p>
+        </div>
       </div>
-
-      <div class="helix-shell">
-        <div class="helix-stage-wrap">
-          <button class="carousel-btn prev" id="helixPrev" aria-label="Previous project">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-
-          <div class="helix-stage" id="helixStage" role="group" aria-label="Project spool, drag sideways to browse">
-            <div class="h-plate" data-img="ninth.png" data-title="Yard Maintenance" data-desc="Lawn mowing and section tidy-up to bring the whole yard back under control.">
-              <span class="h-media"></span>
-              <span class="h-no">01 / 10</span>
-            </div>
-            <div class="h-plate" data-img="5.png" data-title="Residential Exterior" data-desc="A full exterior refresh — wash, prep and paint for a clean, tidy finish.">
-              <span class="h-media"></span>
-              <span class="h-no">02 / 10</span>
-            </div>
-            <div class="h-plate" data-img="6.png" data-title="Roof Care" data-desc="Roof wash and treatment to clear moss and grime and protect it for the years ahead.">
-              <span class="h-media"></span>
-              <span class="h-no">03 / 10</span>
-            </div>
-            <div class="h-plate" data-img="third.png" data-title="Fencing" data-desc="New fence build with a tidy, secure finish that holds up to the weather.">
-              <span class="h-media"></span>
-              <span class="h-no">04 / 10</span>
-            </div>
-            <div class="h-plate" data-img="7.png" data-title="Pressure Washing" data-desc="Driveway and path pressure wash, lifting years of built-up dirt and grime.">
-              <span class="h-media"></span>
-              <span class="h-no">05 / 10</span>
-            </div>
-            <div class="h-plate" data-img="10.png" data-title="Exterior Painting" data-desc="Quality house painting and repaints to keep properties looking modern and protected.">
-              <span class="h-media"></span>
-              <span class="h-no">06 / 10</span>
-            </div>
-            <div class="h-plate" data-img="first.png" data-title="Fence Painting &amp; Restoration" data-desc="Fresh coat of paint and timber protection to extend fence lifespan.">
-              <span class="h-media"></span>
-              <span class="h-no">07 / 10</span>
-            </div>
-            <div class="h-plate" data-img="second.png" data-title="Section Tidy Up" data-desc="Overgrowth removal and comprehensive exterior clean up.">
-              <span class="h-media"></span>
-              <span class="h-no">08 / 10</span>
-            </div>
-            <div class="h-plate" data-img="8.png" data-title="Deck &amp; Patio Cleaning" data-desc="Water blasting and restoring decks to pristine condition.">
-              <span class="h-media"></span>
-              <span class="h-no">09 / 10</span>
-            </div>
-            <div class="h-plate" data-img="4.png" data-title="Property Maintenance" data-desc="Complete property exterior maintenance and upkeep.">
-              <span class="h-media"></span>
-              <span class="h-no">10 / 10</span>
-            </div>
-          </div>
-
-          <button class="carousel-btn next" id="helixNext" aria-label="Next project">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
+      <div class="sample-card">
+        <div class="sample-media"><img src="sample-2.png" alt="Project sample 2"></div>
+        <div class="sample-meta">
+          <h3>Database Integration</h3>
+          <p>Connect your website to a database for storing, retrieving, and managing real data — perfect for accounts, forms, dashboards, and more.</p>
         </div>
-
-        <div class="helix-caption" id="helixCaption">
-          <div class="hc-head">
-            <span class="hc-no" id="hcNo">01</span>
-            <span class="hc-rule"></span>
-            <h3 class="hc-title" id="hcTitle">Yard Maintenance</h3>
-          </div>
-          <p class="hc-desc" id="hcDesc"></p>
+      </div>
+      <div class="sample-card">
+        <div class="sample-media"><img src="sample-3.png" alt="Project sample 3"></div>
+        <div class="sample-meta">
+          <h3>AI Integration</h3>
+          <p>Add smart AI-powered features to your website, from helpful assistants and text tools to custom features built around your needs.</p>
         </div>
+      </div>
+      <div class="sample-card">
+        <div class="sample-media"><img src="sample-4.png" alt="Project sample 4"></div>
+        <div class="sample-meta">
+          <h3>Hosting & Domain Setup</h3>
+          <p>Get your website online with reliable hosting and domain configuration, including deployment through Cloudflare for a smooth launch.</p>
+        </div>
+      </div>
+    </div>
 
-        <div class="helix-scrub-shell">
-          <div class="helix-scrub" id="helixScrub" role="slider" tabindex="0" aria-label="Project position" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1">
-            <div class="hs-track"></div>
-            <div class="hs-fill" id="hsFill"></div>
-            <div class="hs-ticks" id="hsTicks"></div>
-            <div class="hs-thumb" id="hsThumb"><i></i><i></i></div>
-          </div>
+    <div class="section-head" style="margin-top:72px;">
+      <h2 class="section-title">Markan</h2>
+      <p class="section-sub">Landing page for a cleaning service business in New Zealand.</p>
+    </div>
+
+    <div class="samples-grid">
+      <div class="sample-card">
+        <div class="sample-media"><img src="markan1.png" alt="Markan screenshot 1"></div>
+        <div class="sample-meta">
+          <h3>Landing Page</h3>
+          <p>Describe what this screen shows.</p>
+        </div>
+      </div>
+      <div class="sample-card">
+        <div class="sample-media"><img src="markan2.png" alt="Markan screenshot 2"></div>
+        <div class="sample-meta">
+          <h3>Main Features</h3>
+          <p>Describe what this screen shows.</p>
+        </div>
+      </div>
+      <div class="sample-card">
+        <div class="sample-media"><img src="markan3.png" alt="Markan screenshot 3"></div>
+        <div class="sample-meta">
+          <h3>Dashboard</h3>
+          <p>Describe what this screen shows.</p>
+        </div>
+      </div>
+      <div class="sample-card">
+        <div class="sample-media"><img src="markan4.png" alt="Markan screenshot 4"></div>
+        <div class="sample-meta">
+          <h3>Mobile View</h3>
+          <p>Describe what this screen shows.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="testimonials" id="testimonials">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="rule-row"><span class="line"></span><h2>What Our Clients Say</h2><span class="line"></span></div>
+
+  <section id="experience" class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow-tag"><span class="num">05</span> // EXPERIENCE</div>
+      <h2 class="section-title">Experience</h2>
+      <p class="section-sub">Where I've been building and what I've learned along the way.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-card">
+          <h3>Lead Developer — grammar-wizard.com</h3>
+          <p>
+            Leading development on <span class="hl">Grammar Wizard</span>, a learning tool
+            built for Porais National High School students — integrating a user database,
+            <span class="hl">AI</span>-assisted features, login, and interactive quizzes.
+          </p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-card">
+          <h3>Intern — Nueva Technologies</h3>
+          <p>
+            Interned at <a class="hl" href="https://www.facebook.com/p/Nueva-Technology-61564266144738/" target="_blank" rel="noopener" style="text-decoration:none;">Nueva Technologies</a>,
+            gaining hands-on experience in a real tech team setting.
+          </p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-card">
+          <h3>Web Developer — Markan</h3>
+          <p>
+            Developed the <span class="hl">landing page</span> for Markan, a cleaning service
+            business based in <span class="hl">New Zealand</span>.
+          </p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-card">
+          <h3>Graduated — Mobile App & Web Development</h3>
+          <p>
+            Completed Senior High School at <span class="hl">STI College</span> under the
+            Mobile App and Web Development strand.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow-tag"><span class="num">06</span> // CONTACT</div>
+      <h2 class="section-title">Let's connect.</h2>
+      <p class="section-sub">Have a project in mind or just want to say hi? Send me a message.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="contact-info-list">
+          <div><span>work.austingarcia@gmail.com</span></div>
+          <div><span>+63 9XX XXX XXXX</span></div>
+          <div><span>Philippines</span></div>
+        </div>
+        <a href="#contact" class="btn btn-primary">
+          Get in touch
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
 
-      <p class="testi-quote" id="testiQuote">"Reliable, tidy and did a great job on the lawns and painting. Would definitely use them again."</p>
-      <p class="testi-author" id="testiAuthor">Emie M. (Ngongotaha)</p>
+      <form class="contact-form" id="inquiryForm">
+        <input type="hidden" name="access_key" value="695cdb34-6198-48da-8a11-12a5ddad7cdd">
+        <input type="hidden" name="subject" value="New Inquiry from Portfolio — Austin Garcia">
+        <input type="hidden" name="from_name" value="Austin Garcia Portfolio">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
-      <div class="testi-nav">
-        <button id="testiPrev" aria-label="Previous testimonial">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        <div class="field">
+          <label for="fname">Full Name</label>
+          <input id="fname" name="name" type="text" placeholder="Your full name" required>
+        </div>
+        <div class="field">
+          <label for="femail">Email Address</label>
+          <input id="femail" name="email" type="email" placeholder="you@company.com" required>
+        </div>
+        <div class="field">
+          <label for="fdetails">Project Details</label>
+          <textarea id="fdetails" name="message" rows="4" placeholder="Tell me about your project..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+          <span id="submitLabel">Send Inquiry</span>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <button id="testiNext" aria-label="Next testimonial">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY US -->
-  <section class="why" id="why">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="rule-row"><span class="line"></span><h2>Why homeowners choose us</h2><span class="line"></span></div>
-        <p>The same promise on every job, big or small.</p>
-      </div>
-
-      <div class="why-grid">
-        <div class="why-card">
-          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <h4>Reliable &amp; on time</h4>
-          <p>We show up when we say we will and finish the job properly.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="m8.5 12.5-1.6 7 5.1-2.4 5.1 2.4-1.6-7"/></svg></div>
-          <h4>Quality work you can trust</h4>
-          <p>Careful preparation and finishing on every roof, wall and fence.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 .8 3 2c0 3-6 1.5-6 4.5 0 1.2 1.3 2 3 2s3-1.1 3-2.5"/></svg></div>
-          <h4>Affordable prices</h4>
-          <p>Straightforward, fair quotes with no hidden extras.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.7-3.4 3.2-5.2 6.5-5.2S15.3 16.6 16 20"/><circle cx="18" cy="9.5" r="2.4"/><path d="M17 14.3c2 .3 3.5 1.6 4 3.9"/></svg></div>
-          <h4>Friendly service</h4>
-          <p>Easy to talk to, easy to book, easy to work with.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="wrap">
-      <div class="contact-block">
-        <div class="contact-info">
-          <h2>Contact us</h2>
-          <p class="sub">No obligation — call or message us today and we'll get back to you with a quote.</p>
-
-          <div class="contact-list">
-            <div class="contact-item">
-              <span class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-              Rotorua, New Zealand
-            </div>
-            <a href="tel:0212513600">
-              <span class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-              021 251 3600
-            </a>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=markan.maintenance@gmail.com&su=Quote%20Request%20-%20Markan%20Property%20Maintenance%20%26%20Fencing" target="_blank" rel="noopener">
-              <span class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
-              markan.maintenance@gmail.com
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61594151245168" target="_blank" rel="noopener">
-              <span class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span>
-              Markan Property maintenance &amp; Fence services
-            </a>
-          </div>
-        </div>
-
-        <div class="quote-panel">
-          <div class="qtag"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5 11 13.5 15.5 9"/><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6"/></svg></div>
-          <h3>Free Quote</h3>
-          <p>No obligation. Tell us what you need and we'll be in touch.</p>
-
-          <form class="quote-form" onsubmit="handleQuoteSubmit(event)">
-            <input type="hidden" name="access_key" value="f486c986-54a5-44cb-af6e-e379546e2b24">
-            <input type="hidden" name="subject" value="New Quote Request — Markan Property Maintenance">
-            <input type="text" name="name" placeholder="Your name" required>
-            <input type="tel" name="phone" placeholder="Phone number" required>
-            <input type="email" name="email" placeholder="Email address">
-            <select name="service" required>
-              <option value="" disabled selected>Select a service</option>
-              <option>Roof care</option>
-              <option>Lawn care</option>
-              <option>Exterior painting</option>
-              <option>Water blasting / Pressure washing</option>
-              <option>Fencing services</option>
-            </select>
-            <textarea name="message" placeholder="Tell us a bit about the job"></textarea>
-            <button type="submit">Request a Free Quote</button>
-          </form>
-          <p class="form-note" id="formNote">We usually reply within one business day.</p>
-        </div>
-      </div>
+        <div id="formStatus" class="form-status"></div>
+      </form>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <div class="wrap foot-row">
-    <div class="foot-brand">
-      <img src="logo.png" alt="Markan logo">
-      Markan Property Maintenance &amp; Fencing Services
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-brand">
+        <span class="footer-badge">AG</span>
+        <span class="footer-name">AUSTIN GARCIA</span>
+      </div>
+      <div class="footer-tagline">Full-stack web developer</div>
     </div>
-    <div class="foot-links">
-      <a href="#services">Services</a>
-      <a href="#why">Why Us</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="foot-copy">&copy; <span id="year"></span> Markan Property Maintenance &amp; Fencing Services</div>
+    <nav class="footer-social">
+      <a href="https://github.com/PensiveAustin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/austin-garcia-web/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#">Facebook</a>
+      <a href="https://www.fiverr.com/s/qD2LAp2" target="_blank" rel="noopener">Fiverr</a>
+    </nav>
+    <div class="footer-copy">© 2026 Austin Garcia</div>
   </div>
 </footer>
 
+<a href="#hero" class="float-btn" id="toTop">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  To Top
+</a>
+<a href="#contact" class="float-btn" id="toContact">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4V4z" stroke="none"/><path d="M3 7l9 6 9-6M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  var SEGMENTS = 24;
+  var track = document.getElementById('track');
+  var pctEl = document.getElementById('pct');
+  var labelEl = document.getElementById('label');
+  var flavorEl = document.getElementById('flavor');
+  var overlay = document.getElementById('loading-overlay');
+  var heroEl = document.getElementById('hero');
+  var navEl = document.getElementById('navbar');
+  var typeLine = document.getElementById('typeLine');
+  var body = document.body;
 
-  function handleQuoteSubmit(e){
-    e.preventDefault();
-    var form = e.target;
-    var note = document.getElementById('formNote');
-    var btn = form.querySelector('button[type="submit"]');
-    var originalBtnText = btn.textContent;
-    var originalNoteText = note.textContent;
+  var flavors = ["COMPILING IDEAS","BRUSHING PIXELS","CACHING COFFEE","ALIGNING GRIDS","WAKING UP THE PORTFOLIO","ALMOST THERE"];
 
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    note.textContent = 'Sending your request…';
+  for(var i=0;i<SEGMENTS;i++){
+    var seg = document.createElement('div');
+    seg.className = 'segment';
+    var fill = document.createElement('div');
+    fill.className = 'fill';
+    seg.appendChild(fill);
+    track.appendChild(seg);
+  }
+  var segs = Array.prototype.slice.call(track.querySelectorAll('.segment'));
 
-    var formData = new FormData(form);
+  var progress = 0;
+  var flavorIdx = 0;
+  flavorEl.textContent = flavors[0];
 
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: formData
-    })
+  function tick(){
+    var remaining = 100 - progress;
+    var step = Math.max(0.6, remaining * 0.09) * (0.6 + Math.random()*0.8);
+    progress = Math.min(100, progress + step);
+
+    var litCount = Math.round((progress/100) * SEGMENTS);
+    segs.forEach(function(s, i){
+      s.classList.toggle('lit', i < litCount);
+      s.classList.toggle('crit', progress >= 85 && i < litCount);
+    });
+
+    pctEl.textContent = Math.floor(progress) + '%';
+    pctEl.classList.toggle('crit', progress >= 85);
+
+    var fIdx = Math.min(flavors.length - 1, Math.floor((progress/100) * flavors.length));
+    if(fIdx !== flavorIdx){ flavorIdx = fIdx; flavorEl.textContent = flavors[fIdx]; }
+
+    if(progress < 100){
+      setTimeout(tick, 90 + Math.random()*90);
+    } else {
+      labelEl.textContent = 'READY';
+      flavorEl.textContent = 'LAUNCHING';
+      setTimeout(triggerShake, 260);
+    }
+  }
+
+  function triggerShake(){
+    overlay.classList.add('shake');
+    setTimeout(function(){
+      overlay.classList.remove('shake');
+      overlay.style.opacity = '0';
+      overlay.style.filter = 'blur(8px)';
+      setTimeout(function(){
+        overlay.style.display = 'none';
+        body.classList.remove('is-loading');
+        heroEl.classList.add('show');
+        navEl.classList.add('show');
+        initScrollFeatures();
+        setTimeout(typeGreeting, 400);
+      }, 350);
+    }, 500);
+  }
+
+  function typeGreeting(){
+    var messages = ["Hi! I am Austin", "I build the web", "Let's talk shop"];
+    var msgIdx = 0, charIdx = 0, deleting = false;
+
+    function cursorEl(){ var c = document.createElement('span'); c.className='cursor'; return c; }
+
+    function step(){
+      var current = messages[msgIdx];
+      typeLine.textContent = deleting ? current.slice(0, charIdx--) : current.slice(0, charIdx++);
+      typeLine.appendChild(cursorEl());
+
+      var delay = deleting ? 35 : 55;
+      if(!deleting && charIdx > current.length){ deleting = true; delay = 1400; }
+      else if(deleting && charIdx < 0){ deleting = false; charIdx = 0; msgIdx = (msgIdx+1) % messages.length; delay = 300; }
+      setTimeout(step, delay);
+    }
+    step();
+  }
+
+  setTimeout(tick, 400);
+
+  /* ---------- CONTACT FORM (Web3Forms, no redirect) ---------- */
+  var inquiryForm = document.getElementById('inquiryForm');
+  if(inquiryForm){
+    inquiryForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var submitBtn = document.getElementById('submitBtn');
+      var submitLabel = document.getElementById('submitLabel');
+      var statusEl = document.getElementById('formStatus');
+
+      submitBtn.setAttribute('disabled', 'true');
+      submitLabel.textContent = 'Sending...';
+      statusEl.textContent = '';
+      statusEl.className = 'form-status';
+
+      var formData = new FormData(inquiryForm);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      })
       .then(function(res){ return res.json(); })
       .then(function(data){
         if(data.success){
-          note.textContent = "Thanks — your request has been sent. We'll call you shortly.";
-          form.reset();
+          submitLabel.textContent = 'Send Inquiry';
+          submitBtn.removeAttribute('disabled');
+          statusEl.textContent = "Message sent — I'll get back to you soon.";
+          statusEl.className = 'form-status ok';
+          inquiryForm.reset();
         } else {
-          note.textContent = 'Something went wrong — please call or email us directly.';
+          throw new Error(data.message || 'Submission failed');
         }
       })
       .catch(function(){
-        note.textContent = 'Something went wrong — please call or email us directly.';
-      })
-      .finally(function(){
-        btn.disabled = false;
-        btn.textContent = originalBtnText;
-        setTimeout(function(){
-          if(note.textContent !== originalNoteText) return;
-        }, 0);
+        submitLabel.textContent = 'Send Inquiry';
+        submitBtn.removeAttribute('disabled');
+        statusEl.textContent = 'Something went wrong — please try again or email directly.';
+        statusEl.className = 'form-status err';
       });
+    });
   }
 
-  // Projects carousel — Helix-style 3D coil, drag/wheel/keyboard driven
-  (function(){
-    var stage = document.getElementById('helixStage');
-    if(!stage) return;
-
-    var STEP = 0.34;
-    var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    var caption = document.getElementById('helixCaption');
-    var hcNo = document.getElementById('hcNo');
-    var hcTitle = document.getElementById('hcTitle');
-    var hcDesc = document.getElementById('hcDesc');
-    var scrub = document.getElementById('helixScrub');
-    var hsFill = document.getElementById('hsFill');
-    var ticksBox = document.getElementById('hsTicks');
-    var thumb = document.getElementById('hsThumb');
-    var prevBtn = document.getElementById('helixPrev');
-    var nextBtn = document.getElementById('helixNext');
-
-    function fallback(i){
-      var a = '%230b1626', b = '%23c9922e';
-      return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='640' height='400'>" +
-        "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
-        "<stop offset='0' stop-color='" + a + "'/><stop offset='1' stop-color='" + b + "'/>" +
-        "</linearGradient></defs><rect width='640' height='400' fill='url(%23g)'/>" +
-        "<text x='36' y='330' font-family='Georgia,serif' font-size='110' fill='rgba(255,255,255,.55)'>" +
-        (i < 9 ? '0' + (i + 1) : (i + 1)) + "</text></svg>\")";
-    }
-
-    var nodes = stage.querySelectorAll('.h-plate');
-    var N = nodes.length;
-    var plates = [];
-    var DATA = [];
-    var ticks = [];
-
-    Array.prototype.forEach.call(nodes, function(el, i){
-      var d = { t: el.dataset.title || ('Project ' + (i + 1)), d: el.dataset.desc || '' };
-      DATA.push(d);
-      var m = el.querySelector('.h-media');
-      el.dataset.i = i;
-      plates.push({ el: el, media: m });
-
-      var src = el.dataset.img;
-      if(src){
-        var pre = new Image();
-        pre.onload = function(){ m.style.backgroundImage = "url('" + pre.src + "')"; };
-        pre.onerror = function(){ m.style.backgroundImage = fallback(i); };
-        pre.src = src;
-      } else {
-        m.style.backgroundImage = fallback(i);
-      }
-
-      var tk = document.createElement('i');
-      tk.className = 'h-tick';
-      tk.style.left = (N > 1 ? (i / (N - 1) * 100) : 0) + '%';
-      ticksBox.appendChild(tk);
-      ticks.push(tk);
+  /* ---------- SKILL TAG CLICK ---------- */
+  document.querySelectorAll('.skill-tag').forEach(function(tag){
+    tag.addEventListener('click', function(){
+      tag.classList.toggle('active');
+      tag.classList.remove('pop');
+      void tag.offsetWidth;
+      tag.classList.add('pop');
     });
+    tag.addEventListener('animationend', function(){ tag.classList.remove('pop'); });
+  });
 
-    if(N === 0) return;
-
-    var pos = 0, target = 0, raf = 0, running = false, settled = -1;
-    var RX = 300, RY = 30, COIL = 0.85, FALL = 0.55;
-
-    function readVars(){
-      var cs = getComputedStyle(stage);
-      function num(name, fb){
-        var v = parseFloat(cs.getPropertyValue(name));
-        return isNaN(v) ? fb : v;
-      }
-      RX = num('--h-rx', 300);
-      RY = num('--h-ry', 30);
-      COIL = num('--h-coil', 0.85);
-      FALL = num('--h-fall', 0.55);
-    }
-    readVars();
-
-    var range = 2;
-
-    function render(){
-      var i, p, d, a, th, x, y, rotY, rotZ, sc, op, sat, near = 999, nearI = 0;
-      for(i = 0; i < N; i++){
-        p = plates[i];
-        d = ((i - pos + N / 2 + N * 2) % N) - N / 2;
-        a = Math.abs(d);
-
-        if(a > range + 0.5){
-          if(p.el.style.display !== 'none') p.el.style.display = 'none';
-          continue;
-        }
-        if(p.el.style.display === 'none') p.el.style.display = '';
-
-        if(a < near){ near = a; nearI = i; }
-
-        th = d * STEP;
-        x = Math.sin(th) * RX;
-        y = -Math.sin(d * COIL) * RY;
-        rotY = -th * 57.2958 * 0.85;
-        rotZ = d * 1.4;
-
-        sc = Math.max(0.4, 1 / (1 + FALL * Math.pow(a, 1.15)));
-        op = Math.max(0.16, 1 - 0.34 * a);
-        sat = 0.3 + 0.7 / (1 + 0.9 * a);
-
-        p.el.style.transform =
-          'translate(-50%,-50%) translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0) rotateY(' +
-          rotY.toFixed(2) + 'deg) rotateZ(' + rotZ.toFixed(2) + 'deg) scale(' + sc.toFixed(4) + ')';
-        p.el.style.opacity = op.toFixed(3);
-
-        var zi = Math.round(1000 - a * 10);
-        if(zi !== p.zi){ p.el.style.zIndex = zi; p.zi = zi; }
-
-        p.media.style.filter = 'saturate(' + sat.toFixed(3) + ')';
-        p.el.classList.toggle('is-centre', a < 0.5);
-      }
-      paintScrub();
-      if(nearI !== settled) setCaption(nearI);
-    }
-
-    function loop(){
-      pos += (target - pos) * 0.14;
-      if(Math.abs(target - pos) < 0.0004){
-        pos = target; running = false; render(); return;
-      }
-      render();
-      raf = requestAnimationFrame(loop);
-    }
-
-    function kick(){
-      if(target > N * 2 || target < -N * 2){
-        var k = Math.round(target / N) * N;
-        target -= k; pos -= k;
-      }
-      if(REDUCED){ pos = target; render(); return; }
-      if(!running){ running = true; raf = requestAnimationFrame(loop); }
-    }
-
-    var swapTimer = 0;
-    function setCaption(i){
-      settled = i;
-      var d = DATA[i];
-      clearTimeout(swapTimer);
-      caption.classList.add('swap');
-      swapTimer = setTimeout(function(){
-        hcNo.textContent = (i < 9 ? '0' + (i + 1) : (i + 1));
-        hcTitle.textContent = d.t;
-        hcDesc.textContent = d.d;
-        caption.classList.remove('swap');
-      }, REDUCED ? 0 : 160);
-      scrub.setAttribute('aria-valuenow', i + 1);
-      scrub.setAttribute('aria-valuetext', (i + 1) + ' of ' + N + ', ' + d.t);
-      for(var k = 0; k < N; k++) ticks[k].classList.toggle('on', k === i);
-    }
-
-    function ringPos(){ return ((pos % N) + N) % N; }
-
-    function paintScrub(){
-      var v = ringPos(), frac;
-      if(v <= N - 1) frac = (N > 1 ? v / (N - 1) : 0);
-      else frac = 1 - (v - (N - 1));
-      frac = Math.max(0, Math.min(1, frac));
-      var w = scrub.clientWidth;
-      hsFill.style.width = (frac * 100) + '%';
-      thumb.style.left = (frac * w) + 'px';
-    }
-
-    function scrubTo(clientX){
-      var r = scrub.getBoundingClientRect();
-      var frac = (clientX - r.left) / r.width;
-      frac = Math.max(0, Math.min(1, frac));
-      var want = frac * (N - 1);
-      var base = Math.round((pos - want) / N) * N;
-      target = want + base;
-      kick();
-    }
-
-    var scrubbing = false;
-    function endScrub(e){
-      if(!scrubbing) return;
-      scrubbing = false;
-      try{ if(e && e.pointerId !== undefined) scrub.releasePointerCapture(e.pointerId); }catch(err){}
-      target = Math.round(target);
-      kick();
-    }
-    scrub.addEventListener('pointerdown', function(e){
-      scrubbing = true;
-      try{ scrub.setPointerCapture(e.pointerId); }catch(err){}
-      scrubTo(e.clientX);
-      e.preventDefault();
-    });
-    scrub.addEventListener('pointermove', function(e){ if(scrubbing) scrubTo(e.clientX); });
-    scrub.addEventListener('pointerup', endScrub);
-    scrub.addEventListener('pointercancel', endScrub);
-    scrub.addEventListener('lostpointercapture', endScrub);
-    window.addEventListener('pointerup', endScrub);
-    scrub.addEventListener('dragstart', function(e){ e.preventDefault(); });
-    scrub.addEventListener('keydown', function(e){
-      var k = e.key;
-      if(k === 'ArrowLeft' || k === 'ArrowDown'){ target = Math.round(target) - 1; kick(); e.preventDefault(); }
-      else if(k === 'ArrowRight' || k === 'ArrowUp'){ target = Math.round(target) + 1; kick(); e.preventDefault(); }
-      else if(k === 'Home'){ target = 0; pos = ((pos % N) + N) % N; kick(); e.preventDefault(); }
-      else if(k === 'End'){ target = N - 1; kick(); e.preventDefault(); }
-    });
-
-    var down = false, startX = 0, startT = 0, lastX = 0, lastT = 0, vel = 0, moved = false;
-    function plateWidth(){ return plates[0].el.offsetWidth || 300; }
-
-    function onDown(e){
-      down = true; moved = false;
-      startX = lastX = e.clientX; startT = target; lastT = performance.now(); vel = 0;
-      stage.classList.add('grabbing');
-      try{ stage.setPointerCapture(e.pointerId); }catch(err){}
-    }
-    function onMove(e){
-      if(!down) return;
-      var dx = e.clientX - startX;
-      if(Math.abs(dx) > 4) moved = true;
-      target = startT - dx / (plateWidth() * 0.62);
-      var now = performance.now(), dt = now - lastT;
-      if(dt > 0){ vel = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now; }
-      kick();
-    }
-    function onUp(e){
-      if(!down) return;
-      down = false;
-      stage.classList.remove('grabbing');
-      try{ if(e && e.pointerId !== undefined) stage.releasePointerCapture(e.pointerId); }catch(err){}
-      var flick = -vel * 0.34;
-      flick = Math.max(-2.2, Math.min(2.2, flick));
-      target = Math.round(target + flick);
-      kick();
-    }
-    stage.addEventListener('pointerdown', onDown);
-    stage.addEventListener('pointermove', onMove);
-    stage.addEventListener('pointerup', onUp);
-    stage.addEventListener('pointercancel', onUp);
-    stage.addEventListener('lostpointercapture', onUp);
-    window.addEventListener('pointerup', onUp);
-    stage.addEventListener('dragstart', function(e){ e.preventDefault(); });
-
-    stage.addEventListener('wheel', function(e){
-      var raw = (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY) * 0.0032;
-      raw = Math.max(-0.9, Math.min(0.9, raw));
-      target += raw;
-      kick();
-      clearTimeout(stage._wt);
-      stage._wt = setTimeout(function(){ target = Math.round(target); kick(); }, 170);
-      e.preventDefault();
-    }, { passive:false });
-
-    plates.forEach(function(p, i){
-      p.el.addEventListener('click', function(){
-        if(moved) return;
-        var d = ((i - pos + N / 2 + N * 2) % N) - N / 2;
-        if(Math.abs(d) < 0.5){
-          p.el.classList.add('press');
-          setTimeout(function(){ p.el.classList.remove('press'); }, 140);
-          return;
-        }
-        target = Math.round(pos + d);
-        kick();
-      });
-    });
-
-    prevBtn.addEventListener('click', function(){ target = Math.round(target) - 1; kick(); });
-    nextBtn.addEventListener('click', function(){ target = Math.round(target) + 1; kick(); });
-
-    var rt = 0;
-    window.addEventListener('resize', function(){
-      clearTimeout(rt);
-      rt = setTimeout(function(){ readVars(); render(); }, 120);
-    });
-
-    setCaption(0);
-    render();
-  })();
-
-  // Testimonials carousel — cross-fade between quotes
-  (function(){
-    var quotes = [
-      { text: "\"Reliable, tidy and did a great job on the lawns and painting. Would definitely use them again.\"", author: "Emie M. (Ngongotaha)" },
-      { text: "\"Turned up on time, sorted our fence and gave the deck a wash — looks brand new.\"", author: "Marvin S. (Springfield)" },
-      { text: "\"Easy to deal with from the first message to the finished job. Fair price too.\"", author: "Arlando N. (Te Ngae)" },
-      { text: "\"Our roof hadn't been touched in years — they cleaned and treated it and it looks so much better.\"", author: "Bryan O. (Fenton)" }
-    ];
-    var el = document.getElementById('testiQuote');
-    var authorEl = document.getElementById('testiAuthor');
-    var prevBtn = document.getElementById('testiPrev');
-    var nextBtn = document.getElementById('testiNext');
-    if(!el) return;
-    var qi = 0;
-    function show(i){
-      el.style.opacity = 0;
-      if(authorEl) authorEl.style.opacity = 0;
-      setTimeout(function(){
-        el.textContent = quotes[i].text;
-        if(authorEl) authorEl.textContent = quotes[i].author;
-        el.style.opacity = 1;
-        if(authorEl) authorEl.style.opacity = 1;
-      }, 600);
-    }
-    prevBtn.addEventListener('click', function(){ qi = (qi - 1 + quotes.length) % quotes.length; show(qi); });
-    nextBtn.addEventListener('click', function(){ qi = (qi + 1) % quotes.length; show(qi); });
-  })();
-
-  // Cinematic "camera pans around" stage transition
-  (function(){
-    var imgs = document.querySelectorAll('.s-img');
-    var caption = document.getElementById('stageCaption');
-    var sweep = document.getElementById('stageSweep');
-    var idx = 0;
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduceMotion || imgs.length === 0) return;
-
-    function next(){
-      var current = imgs[idx];
-      var nextIdx = (idx + 1) % imgs.length;
-      var nextImg = imgs[nextIdx];
-
-      // current image swings away to the far side like the camera has orbited past it
-      current.classList.remove('active');
-      current.classList.add('leaving');
-
-      // incoming image swings in from the opposite side it left through
-      nextImg.classList.add('active');
-
-      // light sweep across the stage sells the "camera moving round" feel
-      sweep.classList.remove('sweep-run');
-      void sweep.offsetWidth; // restart animation
-      sweep.classList.add('sweep-run');
-
-      caption.style.opacity = 0;
-      setTimeout(function(){
-        caption.textContent = nextImg.getAttribute('data-cap');
-        caption.style.opacity = 1;
-      }, 300);
-
-      // once it has swung fully past, drop the leaving class so it resets
-      // to its off-stage starting position (invisible, so no visible snap)
-      setTimeout(function(){
-        current.classList.remove('leaving');
-      }, 1350);
-
-      idx = nextIdx;
-    }
-    setInterval(next, 3400);
-  })();
-
-  // Floating 3D tilt illusion — pointer-driven on desktop, gentle idle
-  // drift everywhere else, so the object always reads as a solid,
-  // lit object hovering in space rather than a flat sticker.
-  (function(){
-    var stage = document.getElementById('stage');
-    var tilt = document.getElementById('stageTilt');
-    var glow = document.getElementById('stageGlow');
-    var ring = document.getElementById('stageRing');
-    var shine = document.getElementById('stageShine');
-    var shadow = document.getElementById('stageShadow');
-    if(!stage || !tilt) return;
-
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduceMotion) return;
-
-    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    var usingPointer = false;
-    var idleT = 0;
-
-    function apply(rx, ry){
-      // rx = tilt forward/back (from vertical cursor pos), ry = tilt left/right
-      tilt.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
-      glow.style.transform = 'translate(' + (ry * 1.6).toFixed(1) + 'px, ' + (rx * -1.6).toFixed(1) + 'px)';
-      ring.style.transform = 'translate(' + (ry * -0.8).toFixed(1) + 'px, ' + (rx * 0.8).toFixed(1) + 'px)';
-      shine.style.transform = 'translate(' + (ry * -2.2).toFixed(1) + 'px, ' + (rx * 2.2).toFixed(1) + 'px)';
-      shadow.style.transform = 'translateX(-50%) translateX(' + (ry * 1.1).toFixed(1) + 'px) scaleX(' + (1 - Math.abs(ry) / 90).toFixed(2) + ')';
-      shadow.style.opacity = (0.5 - Math.abs(rx) / 40).toFixed(2);
-    }
-
-    function idleLoop(){
-      if(!usingPointer){
-        idleT += 0.008;
-        var rx = Math.sin(idleT) * 9;
-        var ry = Math.cos(idleT * 0.82) * 12;
-        apply(rx, ry);
-      }
-      requestAnimationFrame(idleLoop);
-    }
-    requestAnimationFrame(idleLoop);
-
-    if(canHover){
-      stage.addEventListener('pointermove', function(e){
-        usingPointer = true;
-        var rect = stage.getBoundingClientRect();
-        var px = (e.clientX - rect.left) / rect.width;
-        var py = (e.clientY - rect.top) / rect.height;
-        var rx = (py - 0.5) * -34;
-        var ry = (px - 0.5) * 34;
-        apply(rx, ry);
-      });
-      stage.addEventListener('pointerleave', function(){
-        usingPointer = false;
-      });
-    }
-  })();
-
-  // Scroll-reveal — fade + rise into view as the visitor scrolls down
-  (function(){
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var targets = document.querySelectorAll(
-      '.section-head, .service-card, .why-card, .stage-outer, .testimonials .wrap > *, .contact-info, .quote-panel, .foot-row > *'
-    );
-    if(reduceMotion || !('IntersectionObserver' in window) || targets.length === 0){
-      return;
-    }
-    targets.forEach(function(el, i){
-      el.classList.add('reveal');
-      el.style.transitionDelay = (Math.min(i % 4, 3) * 0.08) + 's';
-    });
+  /* ---------- SCROLL REVEAL + FLOATING BUTTONS ---------- */
+  function initScrollFeatures(){
+    var reveals = document.querySelectorAll('.reveal');
     var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    targets.forEach(function(el){ io.observe(el); });
-  })();
+    }, { threshold:0.15 });
+    reveals.forEach(function(el){ io.observe(el); });
+
+    var toTop = document.getElementById('toTop');
+    var toContact = document.getElementById('toContact');
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > window.innerHeight * 0.6){
+        toTop.classList.add('show');
+        toContact.classList.add('show');
+      } else {
+        toTop.classList.remove('show');
+        toContact.classList.remove('show');
+      }
+    });
+  }
 </script>
 
 </body>
